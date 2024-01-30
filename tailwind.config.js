@@ -10,13 +10,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        cbg: '#232323',
-        cfg: '#282828',
-        cborder: '#343434',
-        cdarkgray: '#707070',
-        cgray: '#A0A0A0',
-        cpg: '#EDEDED', //paragraph
-        cgreen: '#34D399'
+        cpg: '#242424',
+        cbg: '#FEFEFE',
+        cborder: '#D1D1D1',
+        cpg2: '#797979',
+        cgray: '#B0B0B0',
+        cligthgray: '#F3F3F3',
+        cneg: '#FF4040',
+        cpos: '#35B661'
       }
     },
     fontFamily: {
