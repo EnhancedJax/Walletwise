@@ -1,6 +1,7 @@
 import { ExpoRequest, ExpoResponse } from "expo-router/server";
+import { Account } from "../src/types";
 
-const testAccounts = [
+const testAccounts: Account[] = [
   {
     name: "Cash",
     balance: 6942.01,

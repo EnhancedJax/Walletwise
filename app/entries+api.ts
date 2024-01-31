@@ -1,6 +1,7 @@
 import { ExpoRequest, ExpoResponse } from "expo-router/server";
+import { Entry } from "../src/types";
 
-const testEntries = [
+const testEntries: Entry[] = [
   {
     name: "My McDonald's",
     amount: 500,
@@ -22,7 +23,8 @@ const testEntries = [
     amount: 52.99,
     date: new Date(),
     category: "Transfer",
-    account: [0, 1],
+    // account: [0, 1],
+    account: "Octopus",
     type: 2, //0 = expense, 1 = income, 2 = transfer
   },
 ];
