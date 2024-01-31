@@ -8,8 +8,25 @@ module.exports = {
   mode: 'jit',
   theme: {
     extend: {
-      // colors: {
-      // }
+      colors: {
+        'cbg': '#FAFAFA',
+        'cfg': '#FFF',
+        'cpg': '#001135',
+        'cpg2': '#818181',
+        'csub': '#C8C8C8',
+        'cbalneg': '#FF2E3E',
+        'cbalpos': '#35B661',
+        'cprimary': '#207BFF',
+        'dbg': '#242424',
+        'dfg': '#303030',
+        'dpg': '#FEFEFE',
+        'dpg2': '#818181',
+        'dsub': '#F2F2F2',
+        'dbalneg': '#FF2E3E',
+        'dbalpos': '#35B661',
+        'dprimary': '#207BFF',
+
+      }
     },
     fontFamily: {
       inter: ["Inter"]
@@ -17,9 +34,15 @@ module.exports = {
     fontSize: {
       'xs': '10px',
       'sm': '13px',
-      'base': ['15px', '22.5px'],
-      'lg': '20px',
-      'xl': '24px'
+      default: '15px',
+      'lg': '18px',
+      'xl': '20px',
+      '2xl': '22px',
+      '3xl': '64px',
+    },
+    borderRadius: {
+      'md': '30px',
+      'lg': '40px'
     }
   },
   plugins: [],

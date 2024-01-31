@@ -4,6 +4,7 @@ import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
 import Dash from "./screens/dash";
+import { StatusBar } from "expo-status-bar";
 
 const getFonts = () =>
   Font.loadAsync({
@@ -15,9 +16,16 @@ export default function App() {
 
   if (fontsLoaded) {
     return (
-      <NavigationContainer>
-        <Dash />
-      </NavigationContainer>
+      <View>
+        <NavigationContainer>
+          <StatusBar
+            style="auto"
+            translucent={false}
+            backgroundColor="#FAFAFA"
+          />
+          <Dash />
+        </NavigationContainer>
+      </View>
     );
   } else {
     return (
