@@ -8,7 +8,11 @@ import { StatusBar } from "expo-status-bar";
 
 const getFonts = () =>
   Font.loadAsync({
-    Inter: require("./assets/fonts/Inter.ttf"),
+    InterLight: require("./assets/fonts/Inter-Light.ttf"),
+    InterRegular: require("./assets/fonts/Inter-Regular.ttf"),
+    InterMedium: require("./assets/fonts/Inter-Medium.ttf"),
+    InterSemiBold: require("./assets/fonts/Inter-SemiBold.ttf"),
+    InterBold: require("./assets/fonts/Inter-Bold.ttf"),
   });
 
 export default function App() {
@@ -16,16 +20,12 @@ export default function App() {
 
   if (fontsLoaded) {
     return (
-      <View>
-        <NavigationContainer>
-          <StatusBar
-            style="auto"
-            translucent={false}
-            backgroundColor="#FAFAFA"
-          />
+      <NavigationContainer>
+        <StatusBar style="auto" translucent={false} backgroundColor="#FAFAFA" />
+        <SafeAreaView className="w-screen h-screen bg-cbg">
           <Dash />
-        </NavigationContainer>
-      </View>
+        </SafeAreaView>
+      </NavigationContainer>
     );
   } else {
     return (

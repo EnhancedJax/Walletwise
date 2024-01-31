@@ -29,7 +29,11 @@ module.exports = {
       }
     },
     fontFamily: {
-      inter: ["Inter"]
+      il: ["InterLight"],
+      ir: ["InterRegular"],
+      im: ["InterMedium"],
+      isb: ["InterSemiBold"],
+      ib: ["InterBold"],
     },
     fontSize: {
       'xs': '10px',
@@ -42,7 +46,7 @@ module.exports = {
     },
     borderRadius: {
       'md': '30px',
-      'lg': '40px'
+      'lg': '40px',
     }
   },
   plugins: [],
