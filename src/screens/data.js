@@ -50,6 +50,16 @@ const testAccounts = [
     balance: -0.08,
     gradient: ["#FF6320", "#FF984E"],
   },
+  {
+    name: "Super wallet",
+    balance: 1000,
+    gradient: ["#e70cff", "#ff74e5"],
+  },
+  {
+    name: "My balls",
+    balance: -0.08,
+    gradient: ["#626262", "#898989"],
+  },
 ]
 
 export { testAccounts }

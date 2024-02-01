@@ -1,25 +1,37 @@
-import { Pressable, SafeAreaView, ScrollView, View, Text } from "react-native";
-import { Navigation, Bolt, Plus, Utensils } from "lucide-react-native";
+import {
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  View,
+  Text,
+  Button,
+  TouchableOpacity,
+} from "react-native";
+import { Bolt, Plus, Utensils } from "lucide-react-native";
 import { format } from "date-fns";
 import { LinearGradient } from "expo-linear-gradient";
 import { testAccounts, testEntries, testCategories } from "./data.js";
 
-function Dash() {
+import H1 from "../components/h1";
+import AccountArray from "../components/accountArray";
+
+function Dashboard({ navigation }: { navigation: any }) {
   return (
-    <ScrollView>
-      <View className="flex flex-row items-center justify-between w-full p-8">
+    <ScrollView stickyHeaderIndices={[0]}>
+      <View className="sticky flex flex-row items-center justify-between w-full p-8 bg-cfg dark:bg-dfg rounded-b-md">
         <Text className="text-2xl font-ib">
           Wallet<Text className="text-cprimary">Wise</Text>
         </Text>
-        <Bolt className="text-cpg font-il" size="22px" />
+        <TouchableOpacity
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          onPress={() => navigation.navigate("Details")}
+        >
+          <Bolt className="text-cpg font-il" size="22px" />
+        </TouchableOpacity>
       </View>
 
-      <View className="flex flex-row items-center w-full p-8">
-        <AccountCard object={testAccounts[0]} />
-        <AccountCard object={testAccounts[1]} />
-        <View className="flex items-center justify-center p-4 bg-csub w-[39px] h-[39px] rounded-lg">
-          <Plus className="text-cfg" size="20px" />
-        </View>
+      <View className="flex flex-row items-center w-full">
+        <AccountArray accountObj={testAccounts} />
       </View>
 
       <View className="flex w-full p-8">
@@ -54,37 +66,6 @@ function Dash() {
     </ScrollView>
   );
 }
-
-const AccountCard = ({ object }: { object: any }) => {
-  return (
-    <LinearGradient
-      colors={object.gradient}
-      className="flex flex-col items-start justify-center p-4 rounded-lg w-[136px] h-[136px] mr-4"
-      start={{ x: 0, y: 1 }}
-      end={{ x: 1, y: 0 }}
-    >
-      <Text className="mb-2 text-white font-il">{String(object.name)}</Text>
-      <Text className="text-xl text-white font-isb">
-        ${String(object.balance)}
-      </Text>
-    </LinearGradient>
-  );
-};
-
-const H1 = ({
-  children,
-  optionName,
-}: {
-  children: React.ReactNode;
-  optionName: string;
-}) => {
-  return (
-    <View className="flex flex-row items-center justify-between mb-4 ">
-      <Text className="text-lg text-cpg font-ib">{children}</Text>
-      <Text className="text-right text-cpg font-il">{optionName}</Text>
-    </View>
-  );
-};
 
 const Entry = ({ object }: { object: any }) => {
   const formattedDate = format(object.date, "dd/MM");
@@ -131,4 +112,4 @@ const Entry = ({ object }: { object: any }) => {
   );
 };
 
-export default Dash;
+export default Dashboard;
