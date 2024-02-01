@@ -26,17 +26,15 @@ export default function App() {
     return (
       <View>
         <StatusBar style="auto" translucent={false} backgroundColor="#FEFEFE" />
-        <SafeAreaView className="w-screen h-screen bg-cbg">
-          {/* <Stack.Navigator
+        {/* <Stack.Navigator
             initialRouteName="Dashboard"
             screenOptions={{ headerShown: false }}
           > */}
-          {/* <Stack.Screen name="Dashboard" component={Dashboard} />
+        {/* <Stack.Screen name="Dashboard" component={Dashboard} />
             <Stack.Screen name="Details" component={Details} />
             <Stack.Screen name="Settings" component={Settings} /> */}
-          <Dashboard />
-          {/* </Stack.Navigator> */}
-        </SafeAreaView>
+        <Dashboard />
+        {/* </Stack.Navigator> */}
       </View>
     );
   } else {

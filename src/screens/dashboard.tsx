@@ -6,6 +6,7 @@ import {
   Text,
   Button,
   TouchableOpacity,
+  TouchableNativeFeedback,
 } from "react-native";
 import { Bolt, Plus, Utensils } from "lucide-react-native";
 import { format } from "date-fns";
@@ -17,8 +18,8 @@ import AccountArray from "../components/accountArray";
 
 function Dashboard({ navigation }: { navigation: any }) {
   return (
-    <ScrollView stickyHeaderIndices={[0]}>
-      <View className="sticky flex flex-row items-center justify-between w-full p-8 bg-cfg dark:bg-dfg rounded-b-md">
+    <SafeAreaView className="w-screen h-screen bg-cbg">
+      <View className="sticky flex flex-row items-center justify-between w-full p-7 bg-cfg dark:bg-dfg rounded-b-md">
         <Text className="text-2xl font-ib">
           Wallet<Text className="text-cprimary">Wise</Text>
         </Text>
@@ -29,41 +30,52 @@ function Dashboard({ navigation }: { navigation: any }) {
           <Bolt className="text-cpg font-il" size="22px" />
         </TouchableOpacity>
       </View>
+      <ScrollView>
+        <View className="flex flex-row items-center w-full">
+          <AccountArray accountObj={testAccounts} />
+        </View>
 
-      <View className="flex flex-row items-center w-full">
-        <AccountArray accountObj={testAccounts} />
-      </View>
-
-      <View className="flex w-full p-8">
-        <H1 optionName="details">Expenses</H1>
-        <View className="flex w-full p-4 rounded-md bg-cfg">
-          <View className="flex flex-row items-center justify-between pb-2">
-            <Text className="font-normal text-cpg font-il">
-              $912{" "}
-              <Text className="text-xs text-cpg font-il">
-                spent this period
+        <View className="flex w-full p-7">
+          <H1 optionName="details">Expenses</H1>
+          <View className="flex w-full p-4 rounded-md bg-cfg">
+            <View className="flex flex-row items-center justify-between pb-2">
+              <Text className="font-normal text-cpg font-il">
+                $912{" "}
+                <Text className="text-xs text-cpg font-il">
+                  spent this period
+                </Text>
               </Text>
-            </Text>
-            <Text>$1,693</Text>
+              <Text>$1,693</Text>
+            </View>
+            <View className="flex w-full h-10 bg-csub"></View>
           </View>
-          <View className="flex w-full h-10 bg-csub"></View>
         </View>
-      </View>
 
-      <View className="flex w-full p-8">
-        <H1 optionName="view all">Transactions</H1>
-        <View className="w-full rounded-md bg-cfg">
-          <Entry object={testEntries[0]}></Entry>
-          <Entry object={testEntries[1]}></Entry>
-          <Entry object={testEntries[2]}></Entry>
-          <Entry object={testEntries[0]}></Entry>
-          <Entry object={testEntries[0]}></Entry>
-          <Entry object={testEntries[0]}></Entry>
-          <Entry object={testEntries[0]}></Entry>
-          <Entry object={testEntries[0]}></Entry>
+        <View className="flex w-full p-7">
+          <H1 optionName="view all">Transactions</H1>
+          <View className="w-full rounded-md bg-cfg">
+            <Entry object={testEntries[0]}></Entry>
+            <Entry object={testEntries[1]}></Entry>
+            <Entry object={testEntries[2]}></Entry>
+            <Entry object={testEntries[0]}></Entry>
+            <Entry object={testEntries[0]}></Entry>
+            <Entry object={testEntries[0]}></Entry>
+            <Entry object={testEntries[0]}></Entry>
+            <Entry object={testEntries[0]}></Entry>
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+
+      <LinearGradient
+        className="absolute bottom-0 w-full h-[72px] "
+        colors={["transparent", "#FFF"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+      />
+      <TouchableOpacity className="absolute bg-cprimary rounded-lg bottom-8 right-8 w-[72px] h-[72px] flex justify-center items-center">
+        <Plus className="text-white" size="42px" />
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 }
 
