@@ -12,7 +12,7 @@ import {
 function Details() {
   return (
     <ScrollView>
-      <View className="sticky flex flex-row items-center justify-between w-full p-8">
+      <View className="sticky flex w-full flex-row items-center justify-between p-8">
         <Link href="/" asChild>
           <Button title="Go back"></Button>
         </Link>

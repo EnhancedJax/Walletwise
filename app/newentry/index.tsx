@@ -11,8 +11,8 @@ import {
 } from "react-native";
 import { Check, Clock, PencilLine, Utensils } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { testAccounts, testEntries, testCategories } from "../src/data.js";
-import H1 from "../src/components/h1";
+import { testAccounts, testCategories, testEntries } from "../../src/data.js";
+import H1 from "../../src/components/h1";
 
 function NewEntry() {
   return (
