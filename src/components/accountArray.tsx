@@ -1,4 +1,10 @@
-import { View, Text, ScrollView, TouchableWithoutFeedback } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+} from "react-native";
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Plus } from "lucide-react-native";
@@ -45,7 +51,7 @@ const AccountArray = ({ accountObj }: { accountObj: any }) => {
   };
 
   return (
-    <ScrollView horizontal className="p-8">
+    <ScrollView horizontal className="p-8 ">
       {accountObj.map((account: any, index: number) => (
         <AccountCard
           key={index}
@@ -55,8 +61,10 @@ const AccountArray = ({ accountObj }: { accountObj: any }) => {
         />
       ))}
 
-      <View className="flex items-center justify-center p-4 bg-csub w-[39px] h-[39px] rounded-lg">
-        <Plus className="text-cfg" size="20px" />
+      <View className="flex justify-center h-[136px] mr-20">
+        <TouchableOpacity className="flex items-center justify-center p-4 bg-csub w-[39px] h-[39px] rounded-lg">
+          <Plus className="text-cfg" size="20px" />
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

@@ -6,6 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Dashboard from "../src/screens/dashboard";
 import Details from "../src/screens/details";
 import Settings from "../src/screens/settings";
+import NewEntry from "../src/screens/newentry";
 import { StatusBar } from "expo-status-bar";
 
 const getFonts = () =>

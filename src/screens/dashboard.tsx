@@ -6,7 +6,7 @@ import {
   Text,
   Button,
   TouchableOpacity,
-  TouchableNativeFeedback,
+  Touchable,
 } from "react-native";
 import { Bolt, Plus, Utensils } from "lucide-react-native";
 import { format } from "date-fns";
@@ -68,7 +68,7 @@ function Dashboard({ navigation }: { navigation: any }) {
 
       <LinearGradient
         className="absolute bottom-0 w-full h-[72px] "
-        colors={["transparent", "#FFF"]}
+        colors={["rgba(255,255,255,0)", "rgba(255,255,255,1)"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
       />
@@ -91,36 +91,38 @@ const Entry = ({ object }: { object: any }) => {
     accString = String(object.account);
   }
   return (
-    <View className="flex flex-row items-center justify-between p-4">
-      <View className="flex flex-row">
-        <View
-          className="p-2 mr-4 rounded-lg w-[32px] h-[32px]"
-          style={{ backgroundColor: object.category.color }}
+    <TouchableOpacity>
+      <View className="flex flex-row items-center justify-between p-4">
+        <View className="flex flex-row">
+          <View
+            className="p-2 mr-4 rounded-lg w-[32px] h-[32px]"
+            style={{ backgroundColor: object.category.color }}
+          >
+            <Utensils className="text-cpg" size="16px" />
+          </View>
+          <View>
+            <Text className="text-base font-medium font-im">
+              {String(object.name)}
+            </Text>
+            <Text className="text-sm font-il">
+              {accString} ⋅ {formattedDate}
+            </Text>
+          </View>
+        </View>
+        <Text
+          className={`text-base font-im ${
+            object.type == 0
+              ? "text-cbalneg"
+              : object.type == 1
+              ? "text-cbalpos"
+              : "text-cpg2"
+          }`}
         >
-          <Utensils className="text-cpg" size="16px" />
-        </View>
-        <View>
-          <Text className="text-base font-medium font-im">
-            {String(object.name)}
-          </Text>
-          <Text className="text-sm font-il">
-            {accString} ⋅ {formattedDate}
-          </Text>
-        </View>
+          {object.type == 0 ? "-" : object.type == 1 ? "+" : ""}$
+          {String(object.amount)}
+        </Text>
       </View>
-      <Text
-        className={`text-base font-im ${
-          object.type == 0
-            ? "text-cbalneg"
-            : object.type == 1
-            ? "text-cbalpos"
-            : "text-cpg2"
-        }`}
-      >
-        {object.type == 0 ? "-" : object.type == 1 ? "+" : ""}$
-        {String(object.amount)}
-      </Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
