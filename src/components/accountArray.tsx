@@ -1,15 +1,6 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TouchableNativeFeedback,
-} from "react-native";
+import { View, Text, ScrollView, TouchableWithoutFeedback } from "react-native";
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import {
-  ScrollView,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
 import { Plus } from "lucide-react-native";
 
 interface AccountCardProps {
