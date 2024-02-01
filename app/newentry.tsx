@@ -11,11 +11,10 @@ import {
 } from "react-native";
 import { Check, Clock, PencilLine, Utensils } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { testAccounts, testEntries, testCategories } from "./data.js";
+import { testAccounts, testEntries, testCategories } from "../src/data.js";
+import H1 from "../src/components/h1";
 
-import H1 from "../components/h1";
-
-function NewEntry({ navigation }: { navigation: any }) {
+function NewEntry() {
   return (
     <SafeAreaView className="w-screen h-screen bg-cbg">
       <ScrollView>

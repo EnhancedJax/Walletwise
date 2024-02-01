@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import {
   Pressable,
   SafeAreaView,
@@ -8,14 +9,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-function Settings({ navigation }: { navigation: any }) {
+function Settings() {
   return (
     <ScrollView>
       <View className="sticky flex flex-row items-center justify-between w-full p-8">
-        <Button
-          title="Go back"
-          onPress={() => navigation.navigate("Dashboard")}
-        ></Button>
+        <Link href="/" asChild>
+          <Button title="Go back"></Button>
+        </Link>
       </View>
     </ScrollView>
   );
