@@ -26,7 +26,7 @@ export default function App() {
   if (fontsLoaded) {
     return (
       <View>
-        <StatusBar style="auto" translucent={false} backgroundColor="#FEFEFE" />
+        <StatusBar style="auto" translucent={false} backgroundColor="#FFFFFF" />
         {/* <Stack.Navigator
             initialRouteName="Dashboard"
             screenOptions={{ headerShown: false }}
@@ -34,7 +34,7 @@ export default function App() {
         {/* <Stack.Screen name="Dashboard" component={Dashboard} />
             <Stack.Screen name="Details" component={Details} />
             <Stack.Screen name="Settings" component={Settings} /> */}
-        <Dashboard />
+        <NewEntry />
         {/* </Stack.Navigator> */}
       </View>
     );
