@@ -1,5 +1,5 @@
 import { ExpoRequest, ExpoResponse } from "expo-router/server";
-import { Category } from "../src/types";
+import { Category } from "../../src/types";
 
 const testCategories: { [categoryName: string]: Category } = {
   "Food & Drinks": {

@@ -1,5 +1,5 @@
 import { ExpoRequest, ExpoResponse } from "expo-router/server";
-import { Entry } from "../src/types";
+import { Entry } from "../../src/types";
 
 const testEntries: Entry[] = [
   {

@@ -1,5 +1,5 @@
 import { ExpoRequest, ExpoResponse } from "expo-router/server";
-import { Account } from "../src/types";
+import { Account } from "../../src/types";
 
 const testAccounts: Account[] = [
   {

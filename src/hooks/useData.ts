@@ -12,19 +12,19 @@ export function useData() {
   const [entries, setEntries] = useState([]);
 
   async function fetchAccounts() {
-    const response = await fetch("/accounts");
+    const response = await fetch("/api/accounts");
     const data = await response.json();
     setAccounts(data);
   }
 
   async function fetchCategories() {
-    const response = await fetch("/categories");
+    const response = await fetch("/api/categories");
     const data = await response.json();
     setCategories(data);
   }
 
   async function fetchEntries() {
-    const response = await fetch("/entries");
+    const response = await fetch("/api/entries");
     const data = await response.json();
     setEntries(data);
   }
