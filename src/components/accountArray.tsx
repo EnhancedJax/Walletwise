@@ -51,7 +51,11 @@ const AccountArray = ({ accountObj }: { accountObj: any }) => {
   };
 
   return (
-    <ScrollView horizontal className="p-8 ">
+    <ScrollView
+      horizontal
+      className="p-8 "
+      showsHorizontalScrollIndicator={false}
+    >
       {accountObj.map((account: any, index: number) => (
         <AccountCard
           key={index}

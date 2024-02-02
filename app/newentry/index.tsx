@@ -13,6 +13,7 @@ import { Check, Clock, PencilLine, Utensils } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { testAccounts, testCategories, testEntries } from "../../src/data.js";
 import H1 from "../../src/components/h1";
+import { Link } from "expo-router";
 
 function NewEntry() {
   return (
@@ -114,10 +115,11 @@ function NewEntry() {
           </View>
         </View>
       </ScrollView>
-
-      <TouchableOpacity className="absolute bg-cprimary rounded-lg bottom-8 right-8 w-[72px] h-[72px] flex justify-center items-center">
-        <Check className="text-white" size="42px" />
-      </TouchableOpacity>
+      <Link href="/" asChild>
+        <TouchableOpacity className="absolute bg-cprimary rounded-lg bottom-8 right-8 w-[72px] h-[72px] flex justify-center items-center">
+          <Check className="text-white" size="42px" />
+        </TouchableOpacity>
+      </Link>
     </SafeAreaView>
   );
 }

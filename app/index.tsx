@@ -16,6 +16,7 @@ import { Link } from "expo-router";
 import H1 from "../src/components/h1";
 import AccountArray from "../src/components/accountArray";
 import { testAccounts, testCategories, testEntries } from "../src/data.js";
+import { StatusBar } from "expo-status-bar";
 
 function Dashboard() {
   return (
@@ -32,7 +33,7 @@ function Dashboard() {
           </TouchableOpacity>
         </Link>
       </View>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View className="flex flex-row items-center w-full">
           <AccountArray accountObj={testAccounts} />
         </View>
@@ -74,9 +75,11 @@ function Dashboard() {
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
       />
-      <TouchableOpacity className="absolute bg-cprimary rounded-lg bottom-8 right-8 w-[72px] h-[72px] flex justify-center items-center">
-        <Plus className="text-white" size="42px" />
-      </TouchableOpacity>
+      <Link href="/newentry" asChild>
+        <TouchableOpacity className="absolute bg-cprimary rounded-lg bottom-8 right-8 w-[72px] h-[72px] flex justify-center items-center">
+          <Plus className="text-white" size="42px" />
+        </TouchableOpacity>
+      </Link>
     </SafeAreaView>
   );
 }
@@ -116,8 +119,8 @@ const Entry = ({ object }: { object: any }) => {
             object.type == 0
               ? "text-cbalneg"
               : object.type == 1
-                ? "text-cbalpos"
-                : "text-cpg2"
+              ? "text-cbalpos"
+              : "text-cpg2"
           }`}
         >
           {object.type == 0 ? "-" : object.type == 1 ? "+" : ""}$

@@ -3,6 +3,8 @@ import Head from "expo-router/head";
 import * as Font from "expo-font";
 import { useState } from "react";
 import AppLoading from "expo-app-loading";
+import { StatusBar } from "expo-status-bar";
+import { View } from "react-native";
 
 const getFonts = () =>
   Font.loadAsync({
@@ -23,6 +25,7 @@ export default function Layout() {
           <title>WalletWise</title>
           <meta name="description" content="A simple budget tracker app" />
         </Head>
+        <StatusBar style="auto" translucent={false} backgroundColor="#FFFFFF" />
         <Stack screenOptions={{ headerShown: false }} />
       </>
     );
