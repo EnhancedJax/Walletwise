@@ -33,7 +33,7 @@ function NewEntry() {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   // variables
-  const snapPoints = useMemo(() => ["53%", "10%"], []);
+  const snapPoints = useMemo(() => ["10%", "53%"], []);
 
   // callbacks
   const handleSheetChanges = useCallback((index: number) => {
@@ -49,7 +49,7 @@ function NewEntry() {
   );
   // render
   const renderItem = useCallback(
-    ({ item }: { item: any }) => (
+    ({ item }: { item: string }) => (
       <View key={item} className="p-2 m-2 bg-red-500">
         <Text>{item}</Text>
       </View>
@@ -159,17 +159,19 @@ function NewEntry() {
       </ScrollView>
       <BottomSheet
         ref={bottomSheetRef}
-        index={1}
+        index={0}
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
         animationConfigs={animationConfigs}
         overDragResistanceFactor={10}
-        // enableDynamicSizing={true}
-        contentHeight={500}
+        // enableDynssamicSizing={true}
+        // contentHeight={500}
       >
         <View className="flex w-full px-7">
           <H1>SnapEntry</H1>
-          <BottomSheetScrollView>{data.map(renderItem)}</BottomSheetScrollView>
+          {/* <BottomSheetScrollView>
+            {data.map((item: string) => renderItem({ item }))}
+          </BottomSheetScrollView> */}
         </View>
       </BottomSheet>
       <Link href="/" asChild>
