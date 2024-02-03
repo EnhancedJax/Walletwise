@@ -13,7 +13,7 @@ import { Bolt, Plus, Utensils } from "lucide-react-native";
 import { format } from "date-fns";
 import { LinearGradient } from "expo-linear-gradient";
 
-import { Link, Redirect } from "expo-router";
+import { Link } from "expo-router";
 import H1 from "../src/components/h1";
 import AccountArray from "../src/components/accountArray";
 import { testAccounts, testCategories, testEntries } from "../src/data.js";
