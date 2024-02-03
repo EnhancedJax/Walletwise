@@ -8,16 +8,27 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   TextInput,
+  TouchableNativeFeedback,
 } from "react-native";
 import { Check, Clock, PencilLine, Utensils } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { testAccounts, testCategories, testEntries } from "../../src/data.js";
 import H1 from "../../src/components/h1";
 import { Link } from "expo-router";
-import BottomSheet from "@gorhom/bottom-sheet";
+import BottomSheet, {
+  useBottomSheetSpringConfigs,
+  BottomSheetScrollView,
+} from "@gorhom/bottom-sheet";
 import React, { useCallback, useMemo, useRef } from "react";
 
 function NewEntry() {
+  const animationConfigs = useBottomSheetSpringConfigs({
+    damping: 80,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.1,
+    restSpeedThreshold: 0.1,
+    stiffness: 500,
+  });
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -28,6 +39,24 @@ function NewEntry() {
   const handleSheetChanges = useCallback((index: number) => {
     console.log("handleSheetChanges", index);
   }, []);
+
+  const data = useMemo(
+    () =>
+      Array(50)
+        .fill(0)
+        .map((_, index) => `index-${index}`),
+    []
+  );
+  // render
+  const renderItem = useCallback(
+    ({ item }: { item: any }) => (
+      <View key={item} className="p-2 m-2 bg-red-500">
+        <Text>{item}</Text>
+      </View>
+      // <SnapEntry object={item}></SnapEntry>
+    ),
+    []
+  );
 
   return (
     <SafeAreaView className="w-screen h-screen bg-cbg">
@@ -133,9 +162,14 @@ function NewEntry() {
         index={1}
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
+        animationConfigs={animationConfigs}
+        overDragResistanceFactor={10}
+        // enableDynamicSizing={true}
+        contentHeight={500}
       >
-        <View className="items-center flex-1">
-          <Text>Awesome 🎉</Text>
+        <View className="flex w-full px-7">
+          <H1>SnapEntry</H1>
+          <BottomSheetScrollView>{data.map(renderItem)}</BottomSheetScrollView>
         </View>
       </BottomSheet>
       <Link href="/" asChild>
@@ -149,6 +183,49 @@ function NewEntry() {
 
 const Hrule = () => {
   return <View className="w-full h-1 bg-cbg" />;
+};
+
+const SnapEntry = ({ object }: { object: any }) => {
+  return (
+    <View className="mb-4 rounded-md bg-cbg">
+      <TouchableNativeFeedback
+        onPress={() => console.log("Entry clicked")}
+        background={TouchableNativeFeedback.Ripple(
+          "rgba(150,150,150,0.1)",
+          true
+        )}
+      >
+        <View className="flex flex-row items-center justify-between p-4">
+          <View className="flex flex-row">
+            <View
+              className="p-2 mr-4 rounded-lg w-[32px] h-[32px]"
+              style={{ backgroundColor: object.category.color }}
+            >
+              <Utensils className="text-cpg" size="16px" />
+            </View>
+            <View>
+              <Text className="text-base font-medium font-im">
+                {String(object.name)}
+              </Text>
+              <Text className="text-sm font-il">{String(object.account)}</Text>
+            </View>
+          </View>
+          <Text
+            className={`text-base font-im ${
+              object.type == 0
+                ? "text-cbalneg"
+                : object.type == 1
+                ? "text-cbalpos"
+                : "text-cpg2"
+            }`}
+          >
+            {object.type == 0 ? "-" : object.type == 1 ? "+" : ""}$
+            {String(object.amount)}
+          </Text>
+        </View>
+      </TouchableNativeFeedback>
+    </View>
+  );
 };
 
 export default NewEntry;

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Touchable,
   TouchableNativeFeedback,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { Bolt, Plus, Utensils } from "lucide-react-native";
 import { format } from "date-fns";
@@ -97,8 +98,9 @@ const Entry = ({ object }: { object: any }) => {
     accString = String(object.account);
   }
   return (
-    <View className="rounded-md ">
+    <View className="rounded-md">
       <TouchableNativeFeedback
+        onPress={() => console.log("Entry clicked")}
         background={TouchableNativeFeedback.Ripple(
           "rgba(150,150,150,0.1)",
           true
