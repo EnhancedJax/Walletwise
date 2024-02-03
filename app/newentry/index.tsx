@@ -14,8 +14,21 @@ import { LinearGradient } from "expo-linear-gradient";
 import { testAccounts, testCategories, testEntries } from "../../src/data.js";
 import H1 from "../../src/components/h1";
 import { Link } from "expo-router";
+import BottomSheet from "@gorhom/bottom-sheet";
+import React, { useCallback, useMemo, useRef } from "react";
 
 function NewEntry() {
+  // ref
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  // variables
+  const snapPoints = useMemo(() => ["53%", "10%"], []);
+
+  // callbacks
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log("handleSheetChanges", index);
+  }, []);
+
   return (
     <SafeAreaView className="w-screen h-screen bg-cbg">
       <ScrollView>
@@ -115,6 +128,16 @@ function NewEntry() {
           </View>
         </View>
       </ScrollView>
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={1}
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}
+      >
+        <View className="items-center flex-1">
+          <Text>Awesome 🎉</Text>
+        </View>
+      </BottomSheet>
       <Link href="/" asChild>
         <TouchableOpacity className="absolute bg-cprimary rounded-lg bottom-8 right-8 w-[72px] h-[72px] flex justify-center items-center">
           <Check className="text-white" size="42px" />
