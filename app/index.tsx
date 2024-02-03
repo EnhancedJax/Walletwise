@@ -26,7 +26,7 @@ function Dashboard() {
         <Text className="font-ib text-2xl">
           Wallet<Text className="text-cprimary">Wise</Text>
         </Text>
-        <Link href="/details" asChild>
+        <Link href="/settings" asChild>
           <TouchableOpacity
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           >
