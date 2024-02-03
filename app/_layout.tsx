@@ -1,10 +1,10 @@
-import { Stack } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 import Head from "expo-router/head";
 import * as Font from "expo-font";
 import { useState } from "react";
 import AppLoading from "expo-app-loading";
 import { StatusBar } from "expo-status-bar";
-import { View } from "react-native";
+import useSession from "../src/hooks/useSession";
 
 const getFonts = () =>
   Font.loadAsync({
@@ -17,7 +17,7 @@ const getFonts = () =>
 
 export default function Layout() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
-
+  const { session } = useSession();
   if (fontsLoaded) {
     return (
       <>
@@ -27,6 +27,7 @@ export default function Layout() {
         </Head>
         <StatusBar style="auto" translucent={false} backgroundColor="#FFFFFF" />
         <Stack screenOptions={{ headerShown: false }} />
+        {!(session && session.user) && <Redirect href={"/auth/login"} />}
       </>
     );
   } else {

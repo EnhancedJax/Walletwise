@@ -8,6 +8,8 @@ import {
   TextInput,
 } from "react-native";
 import { supabase } from "../../../src/utils/supabase";
+import useSession from "../../../src/hooks/useSession";
+import { Redirect } from "expo-router";
 
 // Tells Supabase Auth to continuously refresh the session automatically if
 // the app is in the foreground. When this is added, you will continue to receive
@@ -25,6 +27,7 @@ export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const { session } = useSession();
 
   async function signInWithEmail() {
     setLoading(true);
@@ -53,6 +56,7 @@ export default function Auth() {
     setLoading(false);
   }
 
+  if (session && session.user) return <Redirect href={"/"} />;
   return (
     <View style={styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
