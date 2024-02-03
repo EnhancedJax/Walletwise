@@ -9,34 +9,125 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      categories: {
+      accounts: {
         Row: {
+          account_name: string
+          balance: number | null
           color: string
-          icon: string
           id: number
-          name: string
-          user: string | null
+          owner: string
         }
         Insert: {
+          account_name: string
+          balance?: number | null
           color: string
-          icon: string
-          id?: number
-          name: string
-          user?: string | null
+          id?: never
+          owner: string
         }
         Update: {
+          account_name?: string
+          balance?: number | null
           color?: string
-          icon?: string
-          id?: number
-          name?: string
-          user?: string | null
+          id?: never
+          owner?: string
         }
         Relationships: [
           {
-            foreignKeyName: "categories_user_fkey"
-            columns: ["user"]
+            foreignKeyName: "fk_owner"
+            columns: ["owner"]
             isOneToOne: false
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      categories: {
+        Row: {
+          category_name: string
+          color: string
+          icon: string
+          id: number
+          owner: string | null
+        }
+        Insert: {
+          category_name: string
+          color: string
+          icon: string
+          id?: never
+          owner?: string | null
+        }
+        Update: {
+          category_name?: string
+          color?: string
+          icon?: string
+          id?: never
+          owner?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_owner"
+            columns: ["owner"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      entries: {
+        Row: {
+          amount: number
+          category: number | null
+          date: string
+          from_account: number | null
+          id: number
+          owner: string
+          to_account: number | null
+        }
+        Insert: {
+          amount: number
+          category?: number | null
+          date: string
+          from_account?: number | null
+          id?: never
+          owner: string
+          to_account?: number | null
+        }
+        Update: {
+          amount?: number
+          category?: number | null
+          date?: string
+          from_account?: number | null
+          id?: never
+          owner?: string
+          to_account?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_category"
+            columns: ["category"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_from_account"
+            columns: ["from_account"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_owner"
+            columns: ["owner"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_to_account"
+            columns: ["to_account"]
+            isOneToOne: false
+            referencedRelation: "accounts"
             referencedColumns: ["id"]
           }
         ]
@@ -44,15 +135,15 @@ export interface Database {
       users: {
         Row: {
           id: string
-          name: string | null
+          name: string
         }
         Insert: {
           id: string
-          name?: string | null
+          name: string
         }
         Update: {
           id?: string
-          name?: string | null
+          name?: string
         }
         Relationships: [
           {
