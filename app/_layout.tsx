@@ -5,6 +5,7 @@ import { useState } from "react";
 import AppLoading from "expo-app-loading";
 import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const getFonts = () =>
   Font.loadAsync({
@@ -26,7 +27,9 @@ export default function Layout() {
           <meta name="description" content="A simple budget tracker app" />
         </Head>
         <StatusBar style="auto" translucent={false} backgroundColor="#FFFFFF" />
-        <Stack screenOptions={{ headerShown: false }} />
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <Stack screenOptions={{ headerShown: false }} />
+        </GestureHandlerRootView>
       </>
     );
   } else {
