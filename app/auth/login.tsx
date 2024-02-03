@@ -7,8 +7,9 @@ import {
   AppState,
   TextInput,
 } from "react-native";
-import { supabase } from "../../../src/utils/supabase";
-import useSession from "../../../src/hooks/useSession";
+// import { supabase } from "../../src/utils/supabase";
+import { supabase } from "../../src/utils/supabase";
+import useSession from "../../src/hooks/useSession";
 import { Redirect } from "expo-router";
 
 // Tells Supabase Auth to continuously refresh the session automatically if
