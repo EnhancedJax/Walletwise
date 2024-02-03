@@ -1,11 +1,11 @@
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import Head from "expo-router/head";
 import * as Font from "expo-font";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AppLoading from "expo-app-loading";
 import { StatusBar } from "expo-status-bar";
-import { View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import useSession from "../src/hooks/useSession";
 
 const getFonts = () =>
   Font.loadAsync({
@@ -18,6 +18,18 @@ const getFonts = () =>
 
 export default function Layout() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  const { session } = useSession();
+  const router = useRouter();
+  const hasRendered = useRef(false);
+
+  useEffect(() => {
+    if (!hasRendered.current) return;
+    if (!(session && session.user)) router.replace("/auth/login");
+  }, [session]);
+
+  useEffect(() => {
+    hasRendered.current = true;
+  }, []);
 
   if (fontsLoaded) {
     return (

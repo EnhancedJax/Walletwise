@@ -8,6 +8,7 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+import { supabase } from "../../src/utils/supabase";
 
 function Settings() {
   return (
@@ -16,6 +17,10 @@ function Settings() {
         <Link href="/" asChild>
           <Button title="Go back"></Button>
         </Link>
+        <Button
+          title="Sign out"
+          onPress={() => supabase.auth.signOut()}
+        ></Button>
       </View>
     </ScrollView>
   );
