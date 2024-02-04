@@ -8,6 +8,7 @@ import {
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Plus } from "lucide-react-native";
+import { Link } from "expo-router";
 
 interface AccountCardProps {
   isClicked: boolean;
@@ -30,7 +31,7 @@ const AccountCard: React.FC<AccountCardProps> = ({
       end={{ x: 1, y: 0 }}
     >
       <Text className="mb-2 text-white font-il">
-        {String(accountItem.account_name)}
+        {String(accountItem.name)}
       </Text>
       <Text className="text-xl text-white font-isb">
         ${String(accountItem.balance)}
@@ -66,9 +67,11 @@ const AccountArray = ({ accountObj }: { accountObj: any }) => {
       ))}
 
       <View className="flex justify-center h-[136px] mr-20">
-        <TouchableOpacity className="flex items-center justify-center p-4 bg-csub w-[39px] h-[39px] rounded-lg">
-          <Plus className="text-cfg" size="20px" />
-        </TouchableOpacity>
+        <Link href="/newaccount" asChild>
+          <TouchableOpacity className="flex items-center justify-center p-4 bg-csub w-[39px] h-[39px] rounded-lg">
+            <Plus className="text-cfg" size="20px" />
+          </TouchableOpacity>
+        </Link>
       </View>
     </ScrollView>
   );
