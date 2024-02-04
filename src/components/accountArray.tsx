@@ -22,7 +22,7 @@ const AccountCard: React.FC<AccountCardProps> = ({
 }) => (
   <TouchableWithoutFeedback onPress={onClick}>
     <LinearGradient
-      colors={accountItem.gradient}
+      colors={[accountItem.color1, accountItem.color2]}
       className={`flex flex-col items-start justify-center p-4 rounded-lg w-[136px] h-[136px] mr-4 ${
         isClicked ? "opacity-70" : ""
       }`}
@@ -30,7 +30,7 @@ const AccountCard: React.FC<AccountCardProps> = ({
       end={{ x: 1, y: 0 }}
     >
       <Text className="mb-2 text-white font-il">
-        {String(accountItem.name)}
+        {String(accountItem.account_name)}
       </Text>
       <Text className="text-xl text-white font-isb">
         ${String(accountItem.balance)}

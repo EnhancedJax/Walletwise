@@ -11,27 +11,27 @@ export interface Database {
     Tables: {
       accounts: {
         Row: {
-          account_name: string
           balance: number | null
           color1: string
           color2: string
           id: number
+          name: string
           owner: string
         }
         Insert: {
-          account_name: string
           balance?: number | null
           color1: string
           color2: string
           id?: never
+          name: string
           owner: string
         }
         Update: {
-          account_name?: string
           balance?: number | null
           color1?: string
           color2?: string
           id?: never
+          name?: string
           owner?: string
         }
         Relationships: [
@@ -81,9 +81,10 @@ export interface Database {
           amount: number
           category: number | null
           date: string
-          entry_type: string | null
-          from_account: number | null
+          entry_type: string
+          from_account: number
           id: number
+          name: string
           owner: string
           to_account: number | null
         }
@@ -91,9 +92,10 @@ export interface Database {
           amount: number
           category?: number | null
           date: string
-          entry_type?: string | null
-          from_account?: number | null
+          entry_type: string
+          from_account: number
           id?: never
+          name?: string
           owner: string
           to_account?: number | null
         }
@@ -101,25 +103,26 @@ export interface Database {
           amount?: number
           category?: number | null
           date?: string
-          entry_type?: string | null
-          from_account?: number | null
+          entry_type?: string
+          from_account?: number
           id?: never
+          name?: string
           owner?: string
           to_account?: number | null
         }
         Relationships: [
           {
+            foreignKeyName: "entries_from_account_fkey"
+            columns: ["from_account"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "fk_category"
             columns: ["category"]
             isOneToOne: false
             referencedRelation: "categories"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_from_account"
-            columns: ["from_account"]
-            isOneToOne: false
-            referencedRelation: "accounts"
             referencedColumns: ["id"]
           },
           {

@@ -17,10 +17,11 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
 import H1 from "../src/components/h1";
 import AccountArray from "../src/components/accountArray";
-import { testAccounts, testCategories, testEntries } from "../src/data.js";
 import { StatusBar } from "expo-status-bar";
+import { useData } from "../src/hooks/useData";
 
 function Dashboard() {
+  const { accounts, entries, categories } = useData();
   return (
     <SafeAreaView className="w-screen h-screen bg-cbg">
       <View className="sticky flex flex-row items-center justify-between w-full bg-cfg dark:bg-dfg rounded-b-md p-7">
@@ -37,7 +38,7 @@ function Dashboard() {
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="flex flex-row items-center w-full">
-          <AccountArray accountObj={testAccounts} />
+          <AccountArray accountObj={accounts} />
         </View>
 
         <View className="flex w-full p-7">
@@ -63,8 +64,8 @@ function Dashboard() {
             Transactions
           </H1>
           <View className="w-full rounded-md bg-cfg">
-            {testEntries.map((entry, index) => (
-              <Entry key={index} object={entry} />
+            {entries.map((entry, index) => (
+              <Entry key={index} entry={entry} />
             ))}
           </View>
         </View>
@@ -85,16 +86,15 @@ function Dashboard() {
   );
 }
 
-const Entry = ({ object }: { object: any }) => {
-  const formattedDate = format(object.date, "dd/MM");
+const Entry = ({ entry }: { entry: any }) => {
+  const { accounts, entries, categories } = useData();
+
+  const formattedDate = format(entry.date, "dd/MM");
   var accString = "";
-  if (object.type == 2) {
-    accString =
-      testAccounts[object.account[0]].name +
-      " -> " +
-      testAccounts[object.account[1]].name;
+  if (entry.type == 2) {
+    accString = entry.from_account + " -> " + entry.transfer_account;
   } else {
-    accString = String(object.account);
+    accString = String(accounts.filter((acc) => acc.id === entry.from_account));
   }
   return (
     <View className="rounded-md">
@@ -109,13 +109,13 @@ const Entry = ({ object }: { object: any }) => {
           <View className="flex flex-row">
             <View
               className="mr-4 h-[32px] w-[32px] rounded-lg p-2"
-              style={{ backgroundColor: object.category.color }}
+              style={{ backgroundColor: entry.category.color }}
             >
               <Utensils className="text-cpg" size="16px" />
             </View>
             <View>
               <Text className="text-base font-medium font-im">
-                {String(object.name)}
+                {String(entry.name)}
               </Text>
               <Text className="text-sm font-il">
                 {accString} ⋅ {formattedDate}
@@ -124,15 +124,15 @@ const Entry = ({ object }: { object: any }) => {
           </View>
           <Text
             className={`font-im text-base ${
-              object.type == 0
+              entry.type == 0
                 ? "text-cbalneg"
-                : object.type == 1
+                : entry.type == 1
                 ? "text-cbalpos"
                 : "text-cpg2"
             }`}
           >
-            {object.type == 0 ? "-" : object.type == 1 ? "+" : ""}$
-            {String(object.amount)}
+            {entry.type == 0 ? "-" : entry.type == 1 ? "+" : ""}$
+            {String(entry.amount)}
           </Text>
         </View>
       </TouchableNativeFeedback>
