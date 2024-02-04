@@ -8,7 +8,7 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-import { supabase } from "../src/utils/supabase";
+import { supabase } from "../src/utils/supabaseInit";
 
 function Settings() {
   return (

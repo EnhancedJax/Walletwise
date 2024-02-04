@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../utils/supabase";
+import { supabase } from "../utils/supabaseInit";
 import { Tables } from "../types/supabase";
 import useSession from "./useSession";
 

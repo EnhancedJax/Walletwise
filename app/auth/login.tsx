@@ -7,8 +7,7 @@ import {
   AppState,
   TextInput,
 } from "react-native";
-// import { supabase } from "../../src/utils/supabase";
-import { supabase } from "../../src/utils/supabase";
+import { supabase } from "../../src/utils/supabaseInit";
 import useSession from "../../src/hooks/useSession";
 import { Redirect } from "expo-router";
 
