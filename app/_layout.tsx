@@ -25,7 +25,7 @@ export default function Layout() {
   useEffect(() => {
     if (!hasRendered.current) return;
     if (!(session && session.user)) router.replace("/auth/login");
-  }, [session]);
+  }, [session, hasRendered.current]);
 
   useEffect(() => {
     hasRendered.current = true;
