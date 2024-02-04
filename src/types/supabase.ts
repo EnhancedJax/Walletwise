@@ -13,21 +13,24 @@ export interface Database {
         Row: {
           account_name: string
           balance: number | null
-          color: string
+          color1: string
+          color2: string
           id: number
           owner: string
         }
         Insert: {
           account_name: string
           balance?: number | null
-          color: string
+          color1: string
+          color2: string
           id?: never
           owner: string
         }
         Update: {
           account_name?: string
           balance?: number | null
-          color?: string
+          color1?: string
+          color2?: string
           id?: never
           owner?: string
         }
@@ -78,6 +81,7 @@ export interface Database {
           amount: number
           category: number | null
           date: string
+          entry_type: string | null
           from_account: number | null
           id: number
           owner: string
@@ -87,6 +91,7 @@ export interface Database {
           amount: number
           category?: number | null
           date: string
+          entry_type?: string | null
           from_account?: number | null
           id?: never
           owner: string
@@ -96,6 +101,7 @@ export interface Database {
           amount?: number
           category?: number | null
           date?: string
+          entry_type?: string | null
           from_account?: number | null
           id?: never
           owner?: string
