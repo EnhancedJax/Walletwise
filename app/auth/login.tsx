@@ -27,6 +27,7 @@ AppState.addEventListener("change", (state) => {
 export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const { session } = useSession();
 
@@ -49,6 +50,11 @@ export default function Auth() {
     } = await supabase.auth.signUp({
       email: email,
       password: password,
+      options: {
+        data: {
+          name: name,
+        },
+      },
     });
 
     if (error) Alert.alert(error.message);
@@ -74,6 +80,14 @@ export default function Auth() {
           value={password}
           secureTextEntry={true}
           placeholder="Password"
+          autoCapitalize={"none"}
+        />
+      </View>
+      <View style={styles.verticallySpaced}>
+        <TextInput
+          onChangeText={(text) => setName(text)}
+          value={name}
+          placeholder="Name (for sign up)"
           autoCapitalize={"none"}
         />
       </View>
