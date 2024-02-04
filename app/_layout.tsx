@@ -38,7 +38,7 @@ export default function Layout() {
           <title>WalletWise</title>
           <meta name="description" content="A simple budget tracker app" />
         </Head>
-        <StatusBar style="auto" translucent={false} backgroundColor="#FFFFFF" />
+        <StatusBar style="dark" translucent={false} />
         <GestureHandlerRootView style={{ flex: 1 }}>
           <Stack screenOptions={{ headerShown: false }} />
         </GestureHandlerRootView>

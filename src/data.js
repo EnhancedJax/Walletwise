@@ -37,7 +37,8 @@ const testEntries = [{
   category: testCategories['Transfer'],
   account: [0, 1],
   type: 2, //0 = expense, 1 = income, 2 = transfer
-}]
+}
+]
 
 const testAccounts = [
   {

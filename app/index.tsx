@@ -41,7 +41,9 @@ function Dashboard() {
         </View>
 
         <View className="flex w-full p-7">
-          <H1 optionName="details">Expenses</H1>
+          <H1 optionName="details" optionhref="\details">
+            Expenses
+          </H1>
           <View className="flex w-full p-4 rounded-md bg-cfg">
             <View className="flex flex-row items-center justify-between pb-2">
               <Text className="font-normal text-cpg font-il">
@@ -57,16 +59,13 @@ function Dashboard() {
         </View>
 
         <View className="flex w-full p-7">
-          <H1 optionName="view all">Transactions</H1>
+          <H1 optionName="view all" optionhref="\transactions">
+            Transactions
+          </H1>
           <View className="w-full rounded-md bg-cfg">
-            <Entry object={testEntries[0]}></Entry>
-            <Entry object={testEntries[1]}></Entry>
-            <Entry object={testEntries[2]}></Entry>
-            <Entry object={testEntries[0]}></Entry>
-            <Entry object={testEntries[0]}></Entry>
-            <Entry object={testEntries[0]}></Entry>
-            <Entry object={testEntries[0]}></Entry>
-            <Entry object={testEntries[0]}></Entry>
+            {testEntries.map((entry, index) => (
+              <Entry key={index} object={entry} />
+            ))}
           </View>
         </View>
       </ScrollView>
