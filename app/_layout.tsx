@@ -6,6 +6,7 @@ import AppLoading from "expo-app-loading";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import useSession from "../src/hooks/useSession";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 const getFonts = () =>
   Font.loadAsync({
@@ -34,14 +35,16 @@ export default function Layout() {
   if (fontsLoaded) {
     return (
       <>
-        <Head>
-          <title>WalletWise</title>
-          <meta name="description" content="A simple budget tracker app" />
-        </Head>
-        <StatusBar style="dark" translucent={false} />
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <Stack screenOptions={{ headerShown: false }} />
-        </GestureHandlerRootView>
+        <RootSiblingParent>
+          <Head>
+            <title>WalletWise</title>
+            <meta name="description" content="A simple budget tracker app" />
+          </Head>
+          <StatusBar style="dark" translucent={false} />
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <Stack screenOptions={{ headerShown: false }} />
+          </GestureHandlerRootView>
+        </RootSiblingParent>
       </>
     );
   } else {
