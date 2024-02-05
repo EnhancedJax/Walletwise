@@ -71,7 +71,7 @@ function NewEntry() {
       Array(50)
         .fill(0)
         .map((_, index) => `index-${index}`),
-    []
+    [],
   );
   // render
   const renderBackdrop = useCallback(
@@ -84,7 +84,7 @@ function NewEntry() {
         opacity={0.0}
       />
     ),
-    []
+    [],
   );
 
   return (
@@ -99,8 +99,8 @@ function NewEntry() {
                   entryType == 0
                     ? "text-cbalneg dark:text-dbalneg"
                     : entryType == 1
-                    ? "text-cbalpos dark:text-dbalpos"
-                    : "text-cpg2 dark:text-dpg2"
+                      ? "text-cbalpos dark:text-dbalpos"
+                      : "text-cpg2 dark:text-dpg2"
                 }`}
                 onPress={() => bottomInputRef.current?.expand()}
               >
@@ -276,7 +276,7 @@ const SnapEntry = ({ object }: { object: any }) => {
         onPress={() => console.log("Entry clicked")}
         background={TouchableNativeFeedback.Ripple(
           "rgba(150,150,150,0.1)",
-          true
+          true,
         )}
       >
         <View className="flex flex-row items-center justify-between p-4">
@@ -299,8 +299,8 @@ const SnapEntry = ({ object }: { object: any }) => {
               object.type == 0
                 ? "text-cbalneg dark:text-dbalneg"
                 : object.type == 1
-                ? "text-cbalpos dark:text-dbalpos"
-                : "text-cpg dark:text-dpg2"
+                  ? "text-cbalpos dark:text-dbalpos"
+                  : "text-cpg dark:text-dpg2"
             }`}
           >
             {object.type == 0 ? "-" : object.type == 1 ? "+" : ""}$
@@ -323,7 +323,7 @@ interface NumpadTileProps {
 
 const NumpadTile: React.FC<NumpadTileProps> = ({ onPress, text }) => {
   return (
-    <TouchableNativeFeedback onPress={onPress}>
+    <TouchableNativeFeedback onPressIn={onPress}>
       <View className="flex items-center justify-center grow">
         <Text className="text-2xl text-ib">{text}</Text>
       </View>
