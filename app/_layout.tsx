@@ -7,6 +7,7 @@ import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import useSession from "../src/hooks/useSession";
 import { RootSiblingParent } from "react-native-root-siblings";
+import { styled, useColorScheme } from "nativewind";
 
 const getFonts = () =>
   Font.loadAsync({

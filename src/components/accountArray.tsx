@@ -50,7 +50,7 @@ function AccountCard({
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={onRemove}>
         <View
-          className={`absolute flex items-center justify-center w-8 h-8 rounded-lg bg-cprimary right-2 ${
+          className={`absolute flex items-center justify-center w-8 h-8 rounded-lg bg-cprimary dark:bg-dprimary right-2 ${
             edit ? "block" : "hidden"
           }`}
         >
@@ -98,8 +98,8 @@ const AccountArray = ({ accountObj }: { accountObj: any }) => {
 
       <View className="flex justify-center h-[136px] mr-20">
         <Link href="/newaccount" asChild>
-          <TouchableOpacity className="flex items-center justify-center p-4 bg-csub w-[39px] h-[39px] rounded-lg">
-            <Plus className="text-cfg" size="20px" />
+          <TouchableOpacity className="flex items-center justify-center p-4 bg-csub dark:bg-dsub w-[39px] h-[39px] rounded-lg">
+            <Plus className="text-cfg dark:text-dfg" size="20px" />
           </TouchableOpacity>
         </Link>
       </View>

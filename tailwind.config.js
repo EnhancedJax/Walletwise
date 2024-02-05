@@ -47,3 +47,6 @@ module.exports = {
   },
   plugins: [],
 };
+
+// (text|bg)-c(bg|fg|pg|pg2|sub|balneg|balpos|primary)
+// $1-c$2 dark:$1-d$2

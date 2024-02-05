@@ -57,18 +57,18 @@ function NewEntry() {
   );
 
   return (
-    <SafeAreaView className="w-screen h-screen bg-cbg">
+    <SafeAreaView className="w-screen h-screen bg-cbg dark:bg-dbg">
       <ScrollView>
-        <View className="flex w-full px-7 pt-7">
+        <View className="flex w-full p-7">
           <H1 optionName="">New Entry</H1>
-          <View className="flex items-center w-full rounded-md bg-cfg">
+          <View className="flex items-center w-full mb-4 rounded-md bg-cfg dark:bg-dfg">
             <Text
               className={`my-4 text-3xl font-isb ${
                 entryType == 0
-                  ? "text-cbalneg"
+                  ? "text-cbalneg dark:text-dbalneg"
                   : entryType == 1
-                  ? "text-cbalpos"
-                  : "text-cpg2"
+                  ? "text-cbalpos dark:text-dbalpos"
+                  : "text-cpg2 dark:text-dpg2"
               }`}
             >
               {entryType == 0 ? "-" : entryType == 1 ? "+" : ""}$2.15
@@ -77,63 +77,43 @@ function NewEntry() {
             <View className="flex flex-row items-center justify-center px-0 py-4">
               <TouchableOpacity onPress={() => setEntryType(1)}>
                 <View className="flex flex-col items-center mr-4 ">
-                  <Text className="mb-2 text-base text-cpg font-isb">
+                  <Text className="mb-2 text-base text-cpg dark:text-dpg font-isb">
                     Income
                   </Text>
                   <View
                     className={`w-1 h-1 rounded-lg ${
-                      entryType === 1 ? "bg-cbalpos" : ""
+                      entryType === 1 ? "bg-cbalpos dark:bg-dbalpos" : ""
                     }`}
                   ></View>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => setEntryType(2)}>
                 <View className="flex flex-col items-center pr-4">
-                  <Text className="mb-2 text-base text-cpg font-isb">
+                  <Text className="mb-2 text-base text-cpg dark:text-dpg font-isb">
                     Transfer
                   </Text>
                   <View
                     className={`w-1 h-1 rounded-lg ${
-                      entryType === 2 ? "bg-csub" : ""
+                      entryType === 2 ? "bg-csub dark:bg-dsub" : ""
                     }`}
                   ></View>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => setEntryType(0)}>
                 <View className="flex flex-col items-center">
-                  <Text className="mb-2 text-base text-cpg font-isb">
+                  <Text className="mb-2 text-base text-cpg dark:text-dpg font-isb">
                     Expense
                   </Text>
                   <View
                     className={`w-1 h-1 rounded-lg ${
-                      entryType === 0 ? "bg-cbalneg" : ""
+                      entryType === 0 ? "bg-cbalneg dark:bg-dbalneg" : ""
                     }`}
                   ></View>
                 </View>
               </TouchableOpacity>
             </View>
           </View>
-        </View>
-        <View className="flex w-full p-7">
-          <H1 optionName="">Entry details</H1>
-          <View className="flex w-full rounded-md bg-cfg">
-            <View className="flex flex-row items-center p-4">
-              <PencilLine className=" text-cpg" size="15px" />
-              <TextInput
-                className="w-full pl-4 text-base font-il text-cpg"
-                placeholder="Food and Drinks"
-                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-              />
-            </View>
-            <Hrule />
-            <View className="flex flex-row items-center p-4">
-              <Clock className=" text-cpg" size="15px" />
-              <Text className="pl-4 text-base font-il text-cpg">
-                30 Jan 12:00 AM
-              </Text>
-            </View>
-          </View>
-          <View className="flex w-full p-4 mt-4 rounded-md bg-cfg">
+          <View className="flex w-full p-4 mb-4 rounded-md bg-cfg dark:bg-dfg">
             <View className="flex flex-row items-center justify-between mb-4">
               <Text className="text-xs text-base font-il">Account</Text>
               <Text className="text-xs text-base font-il">Category</Text>
@@ -161,12 +141,30 @@ function NewEntry() {
                     backgroundColor: testCategories["Food & Drinks"].color,
                   }}
                 >
-                  <Utensils className="text-cpg" size="24px" />
-                  <Text className="mt-2 text-sm text-cpg font-il">
+                  <Utensils className="text-cpg dark:text-dpg" size="24px" />
+                  <Text className="mt-2 text-sm text-cpg dark:text-dpg font-il">
                     Food and Drinks
                   </Text>
                 </View>
               </TouchableWithoutFeedback>
+            </View>
+          </View>
+
+          <View className="flex w-full rounded-md bg-cfg dark:bg-dfg">
+            <View className="flex flex-row items-center p-4">
+              <PencilLine className=" text-cpg dark:text-dpg" size="15px" />
+              <TextInput
+                className="w-full pl-4 text-base font-il text-cpg dark:text-dpg"
+                placeholder="Food and Drinks"
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+              />
+            </View>
+            <Hrule />
+            <View className="flex flex-row items-center p-4">
+              <Clock className=" text-cpg dark:text-dpg" size="15px" />
+              <Text className="pl-4 text-base font-il text-cpg dark:text-dpg">
+                30 Jan 12:00 AM
+              </Text>
             </View>
           </View>
         </View>
@@ -182,14 +180,14 @@ function NewEntry() {
         // contentHeight={500}
       >
         <View className="flex w-full px-7">
-          <H1>SnapEntry</H1>
+          <H1 optionName="">SnapEntry</H1>
           {/* <BottomSheetScrollView>
             {data.map((item: string) => renderItem({ item }))}
           </BottomSheetScrollView> */}
         </View>
       </BottomSheet>
       <Link href="/" asChild>
-        <TouchableOpacity className="absolute bg-cprimary rounded-lg bottom-8 right-8 w-[72px] h-[72px] flex justify-center items-center">
+        <TouchableOpacity className="absolute bg-cprimary dark:bg-dprimary rounded-lg bottom-8 right-8 w-[72px] h-[72px] flex justify-center items-center">
           <Check className="text-white" size="42px" />
         </TouchableOpacity>
       </Link>
@@ -199,7 +197,7 @@ function NewEntry() {
 
 const SnapEntry = ({ object }: { object: any }) => {
   return (
-    <View className="mb-4 rounded-md bg-cbg">
+    <View className="mb-4 rounded-md bg-cbg dark:bg-dbg">
       <TouchableNativeFeedback
         onPress={() => console.log("Entry clicked")}
         background={TouchableNativeFeedback.Ripple(
@@ -213,7 +211,7 @@ const SnapEntry = ({ object }: { object: any }) => {
               className="p-2 mr-4 rounded-lg w-[32px] h-[32px]"
               style={{ backgroundColor: object.category.color }}
             >
-              <Utensils className="text-cpg" size="16px" />
+              <Utensils className="text-cpg dark:text-dpg" size="16px" />
             </View>
             <View>
               <Text className="text-base font-medium font-im">
@@ -225,10 +223,10 @@ const SnapEntry = ({ object }: { object: any }) => {
           <Text
             className={`text-base font-im ${
               object.type == 0
-                ? "text-cbalneg"
+                ? "text-cbalneg dark:text-dbalneg"
                 : object.type == 1
-                ? "text-cbalpos"
-                : "text-cpg2"
+                ? "text-cbalpos dark:text-dbalpos"
+                : "text-cpg dark:text-dpg2"
             }`}
           >
             {object.type == 0 ? "-" : object.type == 1 ? "+" : ""}$
