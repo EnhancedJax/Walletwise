@@ -1,0 +1,20 @@
+Front-end Todo:
+  Visuals:
+  ☐ Select dropdown for color
+  ☐ Entry category info display @fix
+  ☐ Finalize numpad visuals
+  ☐ Numpad for new account amount entry
+  ☐ Componentize inputs
+  ☐ Automatic darkmode support
+  Logic:
+  ☐ Edit and remove accounts
+  ☐ Numpad operators
+  ☐ Numpad responsiveness @fix
+  Majors:
+  ☐ Expense structure block
+  ☐ Statistics page
+
+Back-end Todo:
+  Majors:
+  ☐ Local storage for faster loading?
+  ☐ Google Auth
