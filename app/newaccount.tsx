@@ -43,7 +43,7 @@ function NewAcc() {
   return (
     <SafeAreaView className="w-screen h-screen bg-cbg dark:bg-dbg">
       <View className="flex w-full p-7">
-        <H1 optionName="">New Account</H1>
+        <H1>New Account</H1>
         <LinearGradient
           colors={["#000", "#000"]}
           className="flex flex-col items-start justify-center p-4 rounded-lg w-full h-[136px] mr-4"
@@ -58,7 +58,7 @@ function NewAcc() {
         </LinearGradient>
       </View>
       <View className="flex w-full p-7">
-        <H1 optionName="">Account Details</H1>
+        <H1>Account Details</H1>
         <View className="flex w-full rounded-md bg-cfg dark:bg-dfg">
           <View className="flex flex-row items-center p-4">
             <PencilLine className=" text-cpg dark:text-dpg" size="15px" />

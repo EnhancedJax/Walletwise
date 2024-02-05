@@ -13,12 +13,16 @@ import { LinearGradient } from "expo-linear-gradient";
 import { testAccounts, testCategories } from "../src/data";
 import H1 from "../src/components/h1";
 import { Link } from "expo-router";
-import BottomSheet, { useBottomSheetSpringConfigs } from "@gorhom/bottom-sheet";
+import BottomSheet, {
+  BottomSheetBackdrop,
+  useBottomSheetSpringConfigs,
+} from "@gorhom/bottom-sheet";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { Hrule } from "../src/components/hrule";
 
 function NewEntry() {
   const [entryType, setEntryType] = useState(0);
+  const [amount, setAmount] = useState(0.0);
 
   const animationConfigs = useBottomSheetSpringConfigs({
     damping: 80,
@@ -29,14 +33,38 @@ function NewEntry() {
   });
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
-
-  // variables
+  const bottomInputRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["10%", "53%"], []);
+  const snapPointsInput = useMemo(() => ["1%", "50%"], []);
 
   // callbacks
   const handleSheetChanges = useCallback((index: number) => {
     console.log("handleSheetChanges", index);
   }, []);
+
+  function handleNumpad(value: number) {
+    if (value >= 0 && value <= 9) {
+      // Append value as digit to the amount
+      setAmount((prevAmount) => prevAmount * 10 + value);
+    } else if (value === -1) {
+      // Insert decimal point
+      setAmount((prevAmount) => {
+        const amountString = prevAmount.toString();
+        if (!amountString.includes(".")) {
+          return parseFloat(amountString + ".");
+        }
+        return prevAmount;
+      });
+    } else if (value === -2) {
+      // Delete key pressed
+      setAmount((prevAmount) => {
+        const amountString = prevAmount.toString();
+        const newAmountString = amountString.slice(0, -1);
+        const newAmount = parseFloat(newAmountString);
+        return isNaN(newAmount) ? 0 : newAmount;
+      });
+    }
+  }
 
   const data = useMemo(
     () =>
@@ -46,12 +74,15 @@ function NewEntry() {
     []
   );
   // render
-  const renderItem = useCallback(
-    ({ item }: { item: string }) => (
-      <View key={item} className="p-2 m-2 bg-red-500">
-        <Text>{item}</Text>
-      </View>
-      // <SnapEntry object={item}></SnapEntry>
+  const renderBackdrop = useCallback(
+    (props: any) => (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={0}
+        appearsOnIndex={1}
+        pressBehavior="close"
+        opacity={0.0}
+      />
     ),
     []
   );
@@ -60,19 +91,23 @@ function NewEntry() {
     <SafeAreaView className="w-screen h-screen bg-cbg dark:bg-dbg">
       <ScrollView>
         <View className="flex w-full p-7">
-          <H1 optionName="">New Entry</H1>
+          <H1>New Entry</H1>
           <View className="flex items-center w-full mb-4 rounded-md bg-cfg dark:bg-dfg">
-            <Text
-              className={`my-4 text-3xl font-isb ${
-                entryType == 0
-                  ? "text-cbalneg dark:text-dbalneg"
-                  : entryType == 1
-                  ? "text-cbalpos dark:text-dbalpos"
-                  : "text-cpg2 dark:text-dpg2"
-              }`}
-            >
-              {entryType == 0 ? "-" : entryType == 1 ? "+" : ""}$2.15
-            </Text>
+            <TouchableOpacity>
+              <Text
+                className={`my-4 text-3xl font-isb ${
+                  entryType == 0
+                    ? "text-cbalneg dark:text-dbalneg"
+                    : entryType == 1
+                    ? "text-cbalpos dark:text-dbalpos"
+                    : "text-cpg2 dark:text-dpg2"
+                }`}
+                onPress={() => bottomInputRef.current?.expand()}
+              >
+                {entryType == 0 ? "-" : entryType == 1 ? "+" : ""}$
+                {amount.toFixed(2)}
+              </Text>
+            </TouchableOpacity>
             <Hrule />
             <View className="flex flex-row items-center justify-center px-0 py-4">
               <TouchableOpacity onPress={() => setEntryType(1)}>
@@ -176,11 +211,9 @@ function NewEntry() {
         onChange={handleSheetChanges}
         animationConfigs={animationConfigs}
         overDragResistanceFactor={10}
-        // enableDynssamicSizing={true}
-        // contentHeight={500}
       >
         <View className="flex w-full px-7">
-          <H1 optionName="">SnapEntry</H1>
+          <H1>SnapEntry</H1>
           {/* <BottomSheetScrollView>
             {data.map((item: string) => renderItem({ item }))}
           </BottomSheetScrollView> */}
@@ -191,6 +224,47 @@ function NewEntry() {
           <Check className="text-white" size="42px" />
         </TouchableOpacity>
       </Link>
+      <BottomSheet
+        ref={bottomInputRef}
+        index={1}
+        snapPoints={snapPointsInput}
+        animationConfigs={animationConfigs}
+        overDragResistanceFactor={10}
+        enableContentPanningGesture={false}
+        // backdropComponent={renderBackdrop}
+      >
+        <View className="flex flex-row w-full h-full px-7 pb-7">
+          <View className="flex flex-col grow">
+            <Row>
+              <NumpadTile onPress={() => handleNumpad(1)} text="1" />
+              <NumpadTile onPress={() => handleNumpad(2)} text="2" />
+              <NumpadTile onPress={() => handleNumpad(3)} text="3" />
+            </Row>
+            <Row>
+              <NumpadTile onPress={() => handleNumpad(4)} text="4" />
+              <NumpadTile onPress={() => handleNumpad(5)} text="5" />
+              <NumpadTile onPress={() => handleNumpad(6)} text="6" />
+            </Row>
+            <Row>
+              <NumpadTile onPress={() => handleNumpad(7)} text="7" />
+              <NumpadTile onPress={() => handleNumpad(8)} text="8" />
+              <NumpadTile onPress={() => handleNumpad(9)} text="9" />
+            </Row>
+            <Row>
+              <NumpadTile onPress={() => handleNumpad(-1)} text="." />
+              <NumpadTile onPress={() => handleNumpad(0)} text="0" />
+              <NumpadTile onPress={() => handleNumpad(-2)} text="<-" />
+            </Row>
+          </View>
+          <View className="flex flex-col w-[72px]">
+            <NumpadTile onPress={() => handleNumpad(111)} text="*" />
+            <NumpadTile onPress={() => handleNumpad(222)} text="/" />
+            <NumpadTile onPress={() => handleNumpad(333)} text="-" />
+            <NumpadTile onPress={() => handleNumpad(444)} text="+" />
+            <NumpadTile onPress={() => handleNumpad(555)} text="=" />
+          </View>
+        </View>
+      </BottomSheet>
     </SafeAreaView>
   );
 }
@@ -235,6 +309,25 @@ const SnapEntry = ({ object }: { object: any }) => {
         </View>
       </TouchableNativeFeedback>
     </View>
+  );
+};
+
+const Row = ({ children }: { children: React.ReactNode }) => {
+  return <View className="flex flex-row w-full grow">{children}</View>;
+};
+
+interface NumpadTileProps {
+  onPress: () => void;
+  text: string;
+}
+
+const NumpadTile: React.FC<NumpadTileProps> = ({ onPress, text }) => {
+  return (
+    <TouchableNativeFeedback onPress={onPress}>
+      <View className="flex items-center justify-center grow">
+        <Text className="text-2xl text-ib">{text}</Text>
+      </View>
+    </TouchableNativeFeedback>
   );
 };
 

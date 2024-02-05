@@ -3,12 +3,12 @@ import { View, Text, TouchableOpacity } from "react-native";
 
 const H1 = ({
   children,
-  optionName,
+  optionName = "",
   optionhref = "\\",
 }: {
   children: React.ReactNode;
   optionhref?: string;
-  optionName: string;
+  optionName?: string;
 }) => {
   if (optionhref == "\\") {
     return (
