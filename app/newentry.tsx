@@ -1,36 +1,25 @@
 import {
-  Pressable,
   SafeAreaView,
   ScrollView,
   View,
   Text,
-  Button,
   TouchableOpacity,
   TouchableWithoutFeedback,
   TextInput,
   TouchableNativeFeedback,
 } from "react-native";
-import {
-  Check,
-  Clock,
-  PencilLine,
-  Utensils,
-} from "lucide-react-native";
+import { Check, Clock, PencilLine, Utensils } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import {
-  testAccounts,
-  testCategories,
-  testEntries,
-} from "../src/data";
+import { testAccounts, testCategories } from "../src/data";
 import H1 from "../src/components/h1";
 import { Link } from "expo-router";
-import BottomSheet, {
-  useBottomSheetSpringConfigs,
-  BottomSheetScrollView,
-} from "@gorhom/bottom-sheet";
-import React, { useCallback, useMemo, useRef } from "react";
+import BottomSheet, { useBottomSheetSpringConfigs } from "@gorhom/bottom-sheet";
+import React, { useCallback, useMemo, useRef, useState } from "react";
+import { Hrule } from "../src/components/hrule";
 
 function NewEntry() {
+  const [entryType, setEntryType] = useState(0);
+
   const animationConfigs = useBottomSheetSpringConfigs({
     damping: 80,
     overshootClamping: true,
@@ -73,44 +62,55 @@ function NewEntry() {
         <View className="flex w-full px-7 pt-7">
           <H1 optionName="">New Entry</H1>
           <View className="flex items-center w-full rounded-md bg-cfg">
-            <View className="flex items-center pt-8 ">
-              <View
-                className="p-2 rounded-lg w-[32px] h-[32px]"
-                style={{
-                  backgroundColor:
-                    testCategories["Food & Drinks"].color,
-                }}
-              >
-                <Utensils className="text-cpg" size="16px" />
-              </View>
-              <Text className="mt-4 font-bold text-cpg font-ir">
-                Food and Drinks
-              </Text>
-              <Text className="text-sm font-il text-cpg">Cash</Text>
-            </View>
-            <Text className="my-4 text-3xl text-cbalneg font-isb">
-              -$2.15
+            <Text
+              className={`my-4 text-3xl font-isb ${
+                entryType == 0
+                  ? "text-cbalneg"
+                  : entryType == 1
+                  ? "text-cbalpos"
+                  : "text-cpg2"
+              }`}
+            >
+              {entryType == 0 ? "-" : entryType == 1 ? "+" : ""}$2.15
             </Text>
             <Hrule />
             <View className="flex flex-row items-center justify-center px-0 py-4">
-              <View className="flex flex-row items-center">
-                <Text className="pr-2 text-base text-cpg font-il">
-                  Transfer
-                </Text>
-                <View className="w-1 h-1 rounded-lg "></View>
-              </View>
-              <View className="flex flex-row items-center">
-                <Text className="pr-2 text-base text-cpg font-il">
-                  Income
-                </Text>
-                <View className="w-1 h-1 rounded-lg "></View>
-              </View>
-              <View className="flex flex-row items-center">
-                <Text className="pr-2 text-base text-cpg font-isb">
-                  Expense
-                </Text>
-                <View className="w-1 h-1 rounded-lg bg-cbalneg"></View>
-              </View>
+              <TouchableOpacity onPress={() => setEntryType(1)}>
+                <View className="flex flex-col items-center mr-4 ">
+                  <Text className="mb-2 text-base text-cpg font-isb">
+                    Income
+                  </Text>
+                  <View
+                    className={`w-1 h-1 rounded-lg ${
+                      entryType === 1 ? "bg-cbalpos" : ""
+                    }`}
+                  ></View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setEntryType(2)}>
+                <View className="flex flex-col items-center pr-4">
+                  <Text className="mb-2 text-base text-cpg font-isb">
+                    Transfer
+                  </Text>
+                  <View
+                    className={`w-1 h-1 rounded-lg ${
+                      entryType === 2 ? "bg-csub" : ""
+                    }`}
+                  ></View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setEntryType(0)}>
+                <View className="flex flex-col items-center">
+                  <Text className="mb-2 text-base text-cpg font-isb">
+                    Expense
+                  </Text>
+                  <View
+                    className={`w-1 h-1 rounded-lg ${
+                      entryType === 0 ? "bg-cbalneg" : ""
+                    }`}
+                  ></View>
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -135,12 +135,8 @@ function NewEntry() {
           </View>
           <View className="flex w-full p-4 mt-4 rounded-md bg-cfg">
             <View className="flex flex-row items-center justify-between mb-4">
-              <Text className="text-xs text-base font-il">
-                Account
-              </Text>
-              <Text className="text-xs text-base font-il">
-                Category
-              </Text>
+              <Text className="text-xs text-base font-il">Account</Text>
+              <Text className="text-xs text-base font-il">Category</Text>
             </View>
             <View className="flex flex-row items-center justify-between h-[92px]">
               <TouchableWithoutFeedback>
@@ -162,8 +158,7 @@ function NewEntry() {
                 <View
                   className="flex flex-col items-center justify-center w-[47%] h-full p-4 mr-4 rounded-lg"
                   style={{
-                    backgroundColor:
-                      testCategories["Food & Drinks"].color,
+                    backgroundColor: testCategories["Food & Drinks"].color,
                   }}
                 >
                   <Utensils className="text-cpg" size="24px" />
@@ -202,10 +197,6 @@ function NewEntry() {
   );
 }
 
-const Hrule = () => {
-  return <View className="w-full h-1 bg-cbg" />;
-};
-
 const SnapEntry = ({ object }: { object: any }) => {
   return (
     <View className="mb-4 rounded-md bg-cbg">
@@ -228,9 +219,7 @@ const SnapEntry = ({ object }: { object: any }) => {
               <Text className="text-base font-medium font-im">
                 {String(object.name)}
               </Text>
-              <Text className="text-sm font-il">
-                {String(object.account)}
-              </Text>
+              <Text className="text-sm font-il">{String(object.account)}</Text>
             </View>
           </View>
           <Text

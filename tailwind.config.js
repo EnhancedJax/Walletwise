@@ -38,7 +38,7 @@ module.exports = {
       lg: "18px",
       xl: "20px",
       "2xl": "22px",
-      "3xl": "64px",
+      "3xl": "48px",
     },
     borderRadius: {
       md: "30px",
