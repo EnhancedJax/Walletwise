@@ -300,8 +300,8 @@ function NewEntry() {
             </Row>
           </View>
           <View className="flex flex-col w-[72px] bg-cbg rounded-md">
-            <NumpadTile onPress={() => handleNumpad(111)} text="*" />
-            <NumpadTile onPress={() => handleNumpad(222)} text="/" />
+            <NumpadTile onPress={() => handleNumpad(111)} text="×" />
+            <NumpadTile onPress={() => handleNumpad(222)} text="÷" />
             <NumpadTile onPress={() => handleNumpad(333)} text="-" />
             <NumpadTile onPress={() => handleNumpad(444)} text="+" />
             <NumpadTile onPress={() => handleNumpad(555)} text="=" />
