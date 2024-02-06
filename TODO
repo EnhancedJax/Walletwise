@@ -19,6 +19,7 @@ Front-end Todo:
 
 Back-end Todo:
   Majors:
-  ☐ Local storage for faster loading?
+  ☐ Fetch after updating db
+  ☐ Separate fetching to new file
   ☐ Google Auth
 Archive:

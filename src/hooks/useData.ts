@@ -2,6 +2,12 @@ import { useState, useEffect } from "react";
 import { supabase } from "../utils/supabaseInit";
 import { Tables } from "../types/supabase";
 import useSession from "./useSession";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  fetchAccounts,
+  fetchCategories,
+  fetchEntries,
+} from "../utils/supabase";
 
 export function useData() {
   const [accounts, setAccounts] = useState<Tables<"accounts">[]>([]);
@@ -10,40 +16,35 @@ export function useData() {
   const { session } = useSession();
 
   useEffect(() => {
-    if (!(session && session.user.id)) return;
-    fetchAccounts();
-    fetchCategories();
-    fetchEntries();
+    pullAccounts();
+    pullCategories();
+    pullEntries();
   }, [session]);
 
-  async function fetchAccounts() {
-    let { data: accounts, error } = await supabase
-      .from("accounts")
-      .select("*")
-      .eq("owner", session?.user.id);
-    if (error) console.error(error);
-    setAccounts(accounts as Tables<"accounts">[]);
+  async function pullAccounts() {
+    if (!session) return;
+    const accounts = await fetchAccounts(session);
+    if (accounts) setAccounts(accounts);
+  }
+  async function pullCategories() {
+    if (!session) return;
+    const categories = await fetchCategories(session);
+    if (categories) setCategories(categories);
+  }
+  async function pullEntries() {
+    if (!session) return;
+    const entries = await fetchEntries(session);
+    if (entries) setEntries(entries);
   }
 
-  async function fetchCategories() {
-    let { data: categories, error } = await supabase
-      .from("categories")
-      .select("*")
-      .or(`owner.is.null,owner.eq.${session?.user.id}`);
-    if (error) console.error(error);
-    setCategories(categories as Tables<"categories">[]);
-  }
-
-  async function fetchEntries() {
-    let { data: entries, error } = await supabase
-      .from("entries")
-      .select("*")
-      .eq("owner", session?.user.id);
-    if (error) console.error(error);
-    setEntries(entries as Tables<"entries">[]);
-  }
-
-  return { accounts, categories, entries };
+  return {
+    accounts,
+    categories,
+    entries,
+    setAccounts,
+    setCategories,
+    setEntries,
+  };
 }
 
 // example of how to use the hook
