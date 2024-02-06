@@ -11,14 +11,13 @@ import {
 import { Check, Clock, PencilLine, Utensils } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { testAccounts, testCategories } from "../src/data";
-import H1 from "../src/components/h1";
 import { Link } from "expo-router";
 import BottomSheet, {
   BottomSheetBackdrop,
   useBottomSheetSpringConfigs,
 } from "@gorhom/bottom-sheet";
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import { Hrule } from "../src/components/hrule";
+import { H1, Hrule, TouchableComponent } from "../src/components/essentials";
 
 function NewEntry() {
   const [entryType, setEntryType] = useState(0);
@@ -102,6 +101,7 @@ function NewEntry() {
           setAmount(parseFloat((numPadSavedAmount * amount).toFixed(2)));
         }
         setNumPadOperatorState(0);
+        bottomInputRef.current?.close();
       } else {
         setNumPadOperatorState(value);
       }
@@ -296,7 +296,7 @@ function NewEntry() {
             <Row>
               <NumpadTile onPress={() => handleNumpad(-1)} text="." />
               <NumpadTile onPress={() => handleNumpad(0)} text="0" />
-              <NumpadTile onPress={() => handleNumpad(-2)} text="<-" />
+              <NumpadTile onPress={() => handleNumpad(-2)} text="⌫" />
             </Row>
           </View>
           <View className="flex flex-col w-[72px] bg-cbg rounded-md">
@@ -315,7 +315,7 @@ function NewEntry() {
 const SnapEntry = ({ object }: { object: any }) => {
   return (
     <View className="mb-4 rounded-md bg-cbg dark:bg-dbg">
-      <TouchableNativeFeedback
+      <TouchableComponent
         onPress={() => console.log("Entry clicked")}
         background={TouchableNativeFeedback.Ripple(
           "rgba(150,150,150,0.1)",
@@ -350,7 +350,7 @@ const SnapEntry = ({ object }: { object: any }) => {
             {String(object.amount)}
           </Text>
         </View>
-      </TouchableNativeFeedback>
+      </TouchableComponent>
     </View>
   );
 };
@@ -366,11 +366,14 @@ interface NumpadTileProps {
 
 const NumpadTile: React.FC<NumpadTileProps> = ({ onPress, text }) => {
   return (
-    <TouchableNativeFeedback onPressIn={onPress}>
-      <View className="flex items-center justify-center grow">
+    <View className="justify-center grow">
+      <TouchableComponent
+        onPressIn={onPress}
+        className="flex items-center justify-center grow"
+      >
         <Text className="text-2xl text-ib">{text}</Text>
-      </View>
-    </TouchableNativeFeedback>
+      </TouchableComponent>
+    </View>
   );
 };
 

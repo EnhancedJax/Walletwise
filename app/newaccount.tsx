@@ -12,8 +12,7 @@ import {
 } from "react-native";
 import { addAccount } from "../src/utils/supabase";
 import useSession from "../src/hooks/useSession";
-import H1 from "../src/components/h1";
-import { Hrule } from "../src/components/hrule";
+import { H1, Hrule } from "../src/components/essentials";
 import {
   Banknote,
   Check,

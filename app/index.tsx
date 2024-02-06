@@ -11,9 +11,9 @@ import { format } from "date-fns";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { Link } from "expo-router";
-import H1 from "../src/components/h1";
 import AccountArray from "../src/components/accountArray";
 import { useData } from "../src/hooks/useData";
+import { H1 } from "../src/components/essentials";
 
 function Dashboard() {
   const { accounts, entries, categories } = useData();

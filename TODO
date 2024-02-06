@@ -1,15 +1,18 @@
 Front-end Todo:
   Visuals:
-  ☐ Select dropdown for color
-  ☐ Entry category info display @fix
-  ☐ Finalize numpad visuals
-  ☐ Numpad for new account amount entry
-  ☐ Componentize inputs
-  ☐ Automatic darkmode support
+  ☐ @change  Expo icons 
+  ☐ @new     New category screen (figma)
+  ☐ @finish   Finalize numpad visuals (obvious call to action, equal to close)
+  ☐ @change  Componentize numpad
+  ☐ @change  Numpad for new account amount entry
+  ☐ @new     Select dropdown for color
+  ☐ @fix      Entry category info display
+  ☐ @change  Componentize inputs
+  ☐ @new     Automatic darkmode support
   Logic:
   ☐ Edit and remove accounts
   ✔ Numpad operators @done(24-02-06 09:20)
-  ☐ Numpad responsiveness @fix
+  ☐ Numpad responsiveness
   Majors:
   ☐ Expense structure block
   ☐ Statistics page
@@ -18,3 +21,4 @@ Back-end Todo:
   Majors:
   ☐ Local storage for faster loading?
   ☐ Google Auth
+Archive:
