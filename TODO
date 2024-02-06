@@ -8,7 +8,7 @@ Front-end Todo:
   ☐ Automatic darkmode support
   Logic:
   ☐ Edit and remove accounts
-  ☐ Numpad operators
+  ✔ Numpad operators @done(24-02-06 09:20)
   ☐ Numpad responsiveness @fix
   Majors:
   ☐ Expense structure block

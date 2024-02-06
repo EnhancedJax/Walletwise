@@ -42,27 +42,69 @@ function NewEntry() {
     console.log("handleSheetChanges", index);
   }, []);
 
+  const [numPadDecimalState, setNumPadDecimalState] = useState(0);
+  const [numPadOperatorState, setNumPadOperatorState] = useState(0);
+  const [numPadSavedAmount, setNumPadSavedAmount] = useState(0);
+
   function handleNumpad(value: number) {
     if (value >= 0 && value <= 9) {
-      // Append value as digit to the amount
-      setAmount((prevAmount) => prevAmount * 10 + value);
+      if (numPadDecimalState === 0) {
+        setAmount((prevAmount) => prevAmount * 10 + value);
+      } else if (numPadDecimalState < 3) {
+        setAmount((prevAmount) =>
+          parseFloat(
+            (prevAmount + value * 0.1 ** numPadDecimalState).toFixed(2)
+          )
+        );
+        setNumPadDecimalState((prevState) => prevState + 1);
+      }
     } else if (value === -1) {
-      // Insert decimal point
-      setAmount((prevAmount) => {
-        const amountString = prevAmount.toString();
-        if (!amountString.includes(".")) {
-          return parseFloat(amountString + ".");
-        }
-        return prevAmount;
-      });
+      if (numPadDecimalState === 0) {
+        setNumPadDecimalState(1);
+      }
     } else if (value === -2) {
-      // Delete key pressed
+      setNumPadDecimalState((prevState) => Math.max(0, prevState - 1));
       setAmount((prevAmount) => {
         const amountString = prevAmount.toString();
         const newAmountString = amountString.slice(0, -1);
         const newAmount = parseFloat(newAmountString);
         return isNaN(newAmount) ? 0 : newAmount;
       });
+    } else if (value > 100) {
+      setNumPadSavedAmount(amount);
+      if (numPadOperatorState == 0 && value !== 555) {
+        setAmount(0);
+      } else if (numPadOperatorState != 555 && value !== 555) {
+        if (numPadOperatorState === 333) {
+          setNumPadSavedAmount(Math.max(0, numPadSavedAmount - amount));
+        } else if (numPadOperatorState === 444) {
+          setNumPadSavedAmount(numPadSavedAmount + amount);
+        } else if (numPadOperatorState === 222) {
+          setNumPadSavedAmount(
+            parseFloat((numPadSavedAmount / amount).toFixed(2))
+          );
+        } else if (numPadOperatorState === 111) {
+          setNumPadSavedAmount(
+            parseFloat((numPadSavedAmount * amount).toFixed(2))
+          );
+        }
+        setAmount(0);
+      }
+
+      if (value === 555) {
+        if (numPadOperatorState === 333) {
+          setAmount(Math.max(0, numPadSavedAmount - amount));
+        } else if (numPadOperatorState === 444) {
+          setAmount(numPadSavedAmount + amount);
+        } else if (numPadOperatorState === 222) {
+          setAmount(parseFloat((numPadSavedAmount / amount).toFixed(2)));
+        } else if (numPadOperatorState === 111) {
+          setAmount(parseFloat((numPadSavedAmount * amount).toFixed(2)));
+        }
+        setNumPadOperatorState(0);
+      } else {
+        setNumPadOperatorState(value);
+      }
     }
   }
 
@@ -71,7 +113,7 @@ function NewEntry() {
       Array(50)
         .fill(0)
         .map((_, index) => `index-${index}`),
-    [],
+    []
   );
   // render
   const renderBackdrop = useCallback(
@@ -84,7 +126,7 @@ function NewEntry() {
         opacity={0.0}
       />
     ),
-    [],
+    []
   );
 
   return (
@@ -99,10 +141,11 @@ function NewEntry() {
                   entryType == 0
                     ? "text-cbalneg dark:text-dbalneg"
                     : entryType == 1
-                      ? "text-cbalpos dark:text-dbalpos"
-                      : "text-cpg2 dark:text-dpg2"
+                    ? "text-cbalpos dark:text-dbalpos"
+                    : "text-cpg2 dark:text-dpg2"
                 }`}
                 onPress={() => bottomInputRef.current?.expand()}
+                numberOfLines={1}
               >
                 {entryType == 0 ? "-" : entryType == 1 ? "+" : ""}$
                 {amount.toFixed(2)}
@@ -256,7 +299,7 @@ function NewEntry() {
               <NumpadTile onPress={() => handleNumpad(-2)} text="<-" />
             </Row>
           </View>
-          <View className="flex flex-col w-[72px]">
+          <View className="flex flex-col w-[72px] bg-cbg rounded-md">
             <NumpadTile onPress={() => handleNumpad(111)} text="*" />
             <NumpadTile onPress={() => handleNumpad(222)} text="/" />
             <NumpadTile onPress={() => handleNumpad(333)} text="-" />
@@ -276,7 +319,7 @@ const SnapEntry = ({ object }: { object: any }) => {
         onPress={() => console.log("Entry clicked")}
         background={TouchableNativeFeedback.Ripple(
           "rgba(150,150,150,0.1)",
-          true,
+          true
         )}
       >
         <View className="flex flex-row items-center justify-between p-4">
@@ -299,8 +342,8 @@ const SnapEntry = ({ object }: { object: any }) => {
               object.type == 0
                 ? "text-cbalneg dark:text-dbalneg"
                 : object.type == 1
-                  ? "text-cbalpos dark:text-dbalpos"
-                  : "text-cpg dark:text-dpg2"
+                ? "text-cbalpos dark:text-dbalpos"
+                : "text-cpg dark:text-dpg2"
             }`}
           >
             {object.type == 0 ? "-" : object.type == 1 ? "+" : ""}$
