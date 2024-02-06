@@ -1,16 +1,12 @@
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { useState } from "react";
 import {
-  Pressable,
   SafeAreaView,
-  ScrollView,
   View,
   Text,
-  Button,
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { addAccount } from "../src/utils/supabase";
 import useSession from "../src/hooks/useSession";
 import { H1, Hrule } from "../src/components/essentials";
 import {
@@ -21,12 +17,14 @@ import {
   PiggyBank,
 } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useData } from "../src/hooks/useData";
 
 function NewAcc() {
   const [name, setName] = useState("");
   const [bal, setBal] = useState("");
   const { session } = useSession();
   const currency = "HKD $";
+  const { addAccount } = useData();
 
   async function createAccount() {
     await addAccount({
@@ -37,7 +35,7 @@ function NewAcc() {
       owner: String(session?.user.id),
     });
 
-    await router.navigate("/");
+    router.navigate("/");
   }
   return (
     <SafeAreaView className="w-screen h-screen bg-cbg dark:bg-dbg">

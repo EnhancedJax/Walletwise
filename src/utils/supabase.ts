@@ -3,43 +3,43 @@ import { Tables, TablesInsert } from "../types/supabase";
 import { supabase } from "./supabaseInit";
 import Toast from "react-native-root-toast";
 
-export async function addAccount(account: TablesInsert<"accounts">) {
+export async function addDBAccount(account: TablesInsert<"accounts">) {
   const { data, error } = await supabase.from("accounts").insert(account);
   if (error) {
     Toast.show(error.message, {
       textColor: "#FF8888",
     });
     console.error(error);
-    return;
+    return false;
   }
-  return data;
+  return true;
 }
 
-export async function addCategory(category: TablesInsert<"categories">) {
+export async function addDBCategory(category: TablesInsert<"categories">) {
   const { data, error } = await supabase.from("categories").insert(category);
   if (error) {
     Toast.show(error.message, {
       textColor: "#FF8888",
     });
     console.error(error);
-    return;
+    return false;
   }
-  return data;
+  return true;
 }
 
-export async function addEntry(entry: TablesInsert<"entries">) {
+export async function addDBEntry(entry: TablesInsert<"entries">) {
   const { data, error } = await supabase.from("entries").insert(entry);
   if (error) {
     Toast.show(error.message, {
       textColor: "#FF8888",
     });
     console.error(error);
-    return;
+    return false;
   }
-  return data;
+  return true;
 }
 
-export async function fetchAccounts(session: Session) {
+export async function fetchDBAccounts(session: Session) {
   let { data: accounts, error } = await supabase
     .from("accounts")
     .select("*")
@@ -48,7 +48,7 @@ export async function fetchAccounts(session: Session) {
   return accounts as Tables<"accounts">[];
 }
 
-export async function fetchCategories(session: Session) {
+export async function fetchDBCategories(session: Session) {
   let { data: categories, error } = await supabase
     .from("categories")
     .select("*")
@@ -57,7 +57,7 @@ export async function fetchCategories(session: Session) {
   return categories as Tables<"categories">[];
 }
 
-export async function fetchEntries(session: Session) {
+export async function fetchDBEntries(session: Session) {
   let { data: entries, error } = await supabase
     .from("entries")
     .select("*")

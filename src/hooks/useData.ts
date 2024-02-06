@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../utils/supabaseInit";
-import { Tables } from "../types/supabase";
+import { Tables, TablesInsert } from "../types/supabase";
 import useSession from "./useSession";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
-  fetchAccounts,
-  fetchCategories,
-  fetchEntries,
+  addDBAccount,
+  addDBCategory,
+  addDBEntry,
+  fetchDBAccounts,
+  fetchDBCategories,
+  fetchDBEntries,
 } from "../utils/supabase";
 
 export function useData() {
@@ -23,27 +24,60 @@ export function useData() {
 
   async function pullAccounts() {
     if (!session) return;
-    const accounts = await fetchAccounts(session);
-    if (accounts) setAccounts(accounts);
+    const accounts = await fetchDBAccounts(session);
+    if (accounts) {
+      setAccounts(accounts);
+      console.log("set", accounts.map((a) => a.name).join(","));
+    }
   }
   async function pullCategories() {
     if (!session) return;
-    const categories = await fetchCategories(session);
+    const categories = await fetchDBCategories(session);
     if (categories) setCategories(categories);
   }
   async function pullEntries() {
     if (!session) return;
-    const entries = await fetchEntries(session);
+    const entries = await fetchDBEntries(session);
     if (entries) setEntries(entries);
+  }
+
+  async function addAccount(account: TablesInsert<"accounts">) {
+    console.log("adding");
+    const success = await addDBAccount(account);
+    if (success) {
+      console.log("success, pull ");
+      pullAccounts();
+      return true;
+    }
+    console.log("bad");
+    return false;
+  }
+
+  async function addCategory(category: TablesInsert<"categories">) {
+    const success = await addDBCategory(category);
+    if (success) {
+      pullCategories();
+      return true;
+    }
+    return false;
+  }
+
+  async function addEntry(entry: TablesInsert<"entries">) {
+    const success = await addDBEntry(entry);
+    if (success) {
+      pullEntries();
+      return true;
+    }
+    return false;
   }
 
   return {
     accounts,
     categories,
     entries,
-    setAccounts,
-    setCategories,
-    setEntries,
+    addAccount,
+    addCategory,
+    addEntry,
   };
 }
 
