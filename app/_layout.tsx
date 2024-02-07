@@ -8,6 +8,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import useSession from "../src/hooks/useSession";
 import { RootSiblingParent } from "react-native-root-siblings";
 import { styled, useColorScheme } from "nativewind";
+import { useUpdateData } from "../src/hooks/useUpdateData";
 
 const getFonts = () =>
   Font.loadAsync({
@@ -23,10 +24,14 @@ export default function Layout() {
   const { session } = useSession();
   const router = useRouter();
   const hasRendered = useRef(false);
+  const { pullAccounts, pullCategories, pullEntries } = useUpdateData();
 
   useEffect(() => {
     if (!hasRendered.current) return;
     if (!(session && session.user)) router.replace("/auth/login");
+    pullAccounts();
+    pullCategories();
+    pullEntries();
   }, [session, hasRendered.current]);
 
   useEffect(() => {
