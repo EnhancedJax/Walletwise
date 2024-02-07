@@ -14,10 +14,7 @@ export const useData = create<DataStore>((set) => ({
   accounts: [],
   categories: [],
   entries: [],
-  setAccounts: (accounts) => {
-    console.log("set acc");
-    set({ accounts });
-  },
+  setAccounts: (accounts) => set({ accounts }),
   setCategories: (categories) => set({ categories }),
   setEntries: (entries) => set({ entries }),
 }));

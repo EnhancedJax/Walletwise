@@ -24,10 +24,7 @@ export function updateData() {
   async function pullAccounts() {
     if (!session) return;
     const accounts = await fetchDBAccounts(session);
-    if (accounts) {
-      setAccounts(accounts);
-      console.log("set", accounts.map((a) => a.name).join(","));
-    }
+    if (accounts) setAccounts(accounts);
   }
   async function pullCategories() {
     if (!session) return;
@@ -41,14 +38,11 @@ export function updateData() {
   }
 
   async function addAccount(account: TablesInsert<"accounts">) {
-    console.log("adding");
     const success = await addDBAccount(account);
     if (success) {
-      console.log("success, pull ");
       pullAccounts();
       return true;
     }
-    console.log("bad");
     return false;
   }
 

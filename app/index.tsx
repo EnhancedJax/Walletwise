@@ -14,11 +14,9 @@ import { Link } from "expo-router";
 import AccountArray from "../src/components/accountArray";
 import { useData } from "../src/hooks/useData";
 import { H1 } from "../src/components/essentials";
-import { useEffect } from "react";
 
 function Dashboard() {
   const { accounts, entries, categories } = useData();
-  useEffect(() => console.log("update"), [accounts]);
   return (
     <SafeAreaView className="w-screen h-screen bg-cbg dark:bg-dbg">
       <View className="sticky flex flex-row items-center justify-between w-full bg-cfg dark:bg-dfg rounded-b-md p-7">
