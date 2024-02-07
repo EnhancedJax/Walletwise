@@ -45,7 +45,6 @@ export function useUpdateData() {
     }
     return false;
   }
-
   async function addCategory(category: TablesInsert<"categories">) {
     const success = await addDBCategory(category);
     if (success) {
@@ -54,7 +53,6 @@ export function useUpdateData() {
     }
     return false;
   }
-
   async function addEntry(entry: TablesInsert<"entries">) {
     const success = await addDBEntry(entry);
     if (success) {
@@ -64,6 +62,19 @@ export function useUpdateData() {
     return false;
   }
 
+  async function getLocalAccounts() {
+    const accounts = await AsyncStorage.getItem("accounts");
+    if (accounts) setAccounts(JSON.parse(accounts));
+  }
+  async function getLocalCategories() {
+    const categories = await AsyncStorage.getItem("categories");
+    if (categories) setCategories(JSON.parse(categories));
+  }
+  async function getLocalEntries() {
+    const entries = await AsyncStorage.getItem("entries");
+    if (entries) setEntries(JSON.parse(entries));
+  }
+
   return {
     addAccount,
     addCategory,
@@ -71,5 +82,8 @@ export function useUpdateData() {
     pullAccounts,
     pullCategories,
     pullEntries,
+    getLocalAccounts,
+    getLocalCategories,
+    getLocalEntries,
   };
 }

@@ -24,14 +24,25 @@ export default function Layout() {
   const { session } = useSession();
   const router = useRouter();
   const hasRendered = useRef(false);
-  const { pullAccounts, pullCategories, pullEntries } = useUpdateData();
+  const {
+    pullAccounts,
+    pullCategories,
+    pullEntries,
+    getLocalAccounts,
+    getLocalCategories,
+    getLocalEntries,
+  } = useUpdateData();
 
   useEffect(() => {
     if (!hasRendered.current) return;
     if (!(session && session.user)) router.replace("/auth/login");
-    pullAccounts();
-    pullCategories();
-    pullEntries();
+    getLocalAccounts();
+    getLocalCategories();
+    getLocalEntries();
+
+    // pullAccounts();
+    // pullCategories();
+    // pullEntries();
   }, [session, hasRendered.current]);
 
   useEffect(() => {
