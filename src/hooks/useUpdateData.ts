@@ -9,6 +9,7 @@ import {
   fetchDBEntries,
 } from "../utils/supabase";
 import { useData } from "./useData";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function useUpdateData() {
   const { setAccounts, setCategories, setEntries } = useData();
@@ -17,17 +18,23 @@ export function useUpdateData() {
   async function pullAccounts() {
     if (!session) return;
     const accounts = await fetchDBAccounts(session);
-    if (accounts) setAccounts(accounts);
+    if (!accounts) return;
+    setAccounts(accounts);
+    AsyncStorage.setItem("accounts", JSON.stringify(accounts));
   }
   async function pullCategories() {
     if (!session) return;
     const categories = await fetchDBCategories(session);
-    if (categories) setCategories(categories);
+    if (!categories) return;
+    AsyncStorage.setItem("categories", JSON.stringify(categories));
+    setCategories(categories);
   }
   async function pullEntries() {
     if (!session) return;
     const entries = await fetchDBEntries(session);
-    if (entries) setEntries(entries);
+    if (!entries) return;
+    AsyncStorage.setItem("entries", JSON.stringify(entries));
+    setEntries(entries);
   }
 
   async function addAccount(account: TablesInsert<"accounts">) {
@@ -66,6 +73,3 @@ export function useUpdateData() {
     pullEntries,
   };
 }
-
-// example of how to use the hook
-// const { accounts, entries, categories } = useData();
