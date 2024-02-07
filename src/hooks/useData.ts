@@ -1,5 +1,5 @@
 import create from "zustand";
-import { Tables, TablesInsert } from "../types/supabase";
+import { Tables } from "../types/supabase";
 
 interface DataStore {
   accounts: Tables<"accounts">[];

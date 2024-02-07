@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { TablesInsert } from "../types/supabase";
 import useSession from "./useSession";
 import {
@@ -11,15 +10,9 @@ import {
 } from "../utils/supabase";
 import { useData } from "./useData";
 
-export function updateData() {
+export function useUpdateData() {
   const { setAccounts, setCategories, setEntries } = useData();
   const { session } = useSession();
-
-  useEffect(() => {
-    pullAccounts();
-    pullCategories();
-    pullEntries();
-  }, [session]);
 
   async function pullAccounts() {
     if (!session) return;
@@ -68,6 +61,9 @@ export function updateData() {
     addAccount,
     addCategory,
     addEntry,
+    pullAccounts,
+    pullCategories,
+    pullEntries,
   };
 }
 

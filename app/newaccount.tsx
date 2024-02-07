@@ -17,14 +17,14 @@ import {
   PiggyBank,
 } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { updateData } from "../src/hooks/useUpdateData";
+import { useUpdateData } from "../src/hooks/useUpdateData";
 
 function NewAcc() {
   const [name, setName] = useState("");
   const [bal, setBal] = useState("");
   const { session } = useSession();
   const currency = "HKD $";
-  const { addAccount } = updateData();
+  const { addAccount } = useUpdateData();
 
   async function createAccount() {
     await addAccount({
