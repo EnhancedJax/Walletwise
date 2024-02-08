@@ -6,7 +6,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
       accounts: {
@@ -46,24 +46,24 @@ export interface Database {
       }
       categories: {
         Row: {
-          category_name: string
           color: string
           icon: string
           id: number
+          name: string
           owner: string | null
         }
         Insert: {
-          category_name: string
           color: string
           icon: string
           id?: never
+          name: string
           owner?: string | null
         }
         Update: {
-          category_name?: string
           color?: string
           icon?: string
           id?: never
+          name?: string
           owner?: string | null
         }
         Relationships: [
@@ -81,48 +81,48 @@ export interface Database {
           amount: number
           category: number | null
           date: string
-          entry_type: string
-          from_account: number
+          entry_type: string | null
+          from_account: number | null
           id: number
-          name: string
           owner: string
+          time: string
           to_account: number | null
         }
         Insert: {
           amount: number
           category?: number | null
           date: string
-          entry_type: string
-          from_account: number
+          entry_type?: string | null
+          from_account?: number | null
           id?: never
-          name?: string
           owner: string
+          time: string
           to_account?: number | null
         }
         Update: {
           amount?: number
           category?: number | null
           date?: string
-          entry_type?: string
-          from_account?: number
+          entry_type?: string | null
+          from_account?: number | null
           id?: never
-          name?: string
           owner?: string
+          time?: string
           to_account?: number | null
         }
         Relationships: [
-          {
-            foreignKeyName: "entries_from_account_fkey"
-            columns: ["from_account"]
-            isOneToOne: false
-            referencedRelation: "accounts"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "fk_category"
             columns: ["category"]
             isOneToOne: false
             referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_from_account"
+            columns: ["from_account"]
+            isOneToOne: false
+            referencedRelation: "accounts"
             referencedColumns: ["id"]
           },
           {
