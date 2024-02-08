@@ -24,7 +24,7 @@ Back-end Todo:
   ✔ Fetch after updating db
   ✔ Separate fetching to new file
   ✔ Do the back end of your mom
-  ☐ update local storage whenever fetched
-  ☐ use local storage for initial load
+  ✔ update local storage whenever fetched
+  ✔ use local storage for initial load
   ☐ Google Auth
 Archive:
