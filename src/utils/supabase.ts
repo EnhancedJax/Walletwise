@@ -65,3 +65,43 @@ export async function fetchDBEntries(session: Session) {
   if (error) console.error(error);
   return entries as Tables<"entries">[];
 }
+
+export async function fetchDBEntriesByDay(
+  session: Session,
+  year: number,
+  month: number,
+  day: number,
+) {
+  let { data: entries, error } = await supabase
+    .from("entries")
+    .select("*")
+    .eq("owner", session?.user.id)
+    .eq("date", `${year}-${month}-${day}`);
+
+  if (error) {
+    console.error(error);
+    return [];
+  }
+
+  return entries as Tables<"entries">[];
+}
+
+export async function fetchDBEntriesByMonth(
+  session: Session,
+  year: number,
+  month: number,
+) {
+  let { data: entries, error } = await supabase
+    .from("entries")
+    .select("*")
+    .eq("owner", session?.user.id)
+    .gte("date", `${year}-${month}-${1}`)
+    .lt("date", `${year}-${month + 1}-${1}`);
+
+  if (error) {
+    console.error(error);
+    return [];
+  }
+
+  return entries as Tables<"entries">[];
+}
