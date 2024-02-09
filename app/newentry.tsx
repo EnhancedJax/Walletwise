@@ -11,17 +11,40 @@ import {
 import { Check, Clock, PencilLine, Utensils } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { testAccounts, testCategories } from "../src/data";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import BottomSheet, {
   BottomSheetBackdrop,
   useBottomSheetSpringConfigs,
 } from "@gorhom/bottom-sheet";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { H1, Hrule, TouchableComponent } from "../src/components/essentials";
+import { useUpdateData } from "../src/hooks/useUpdateData";
+import useSession from "../src/hooks/useSession";
 
 function NewEntry() {
   const [entryType, setEntryType] = useState(0);
+  const [name, setName] = useState("");
   const [amount, setAmount] = useState(0.0);
+  const { addEntry } = useUpdateData();
+  const { session } = useSession();
+  const datetimeNow = new Date();
+
+  async function createEntry() {
+    await addEntry({
+      amount: amount,
+      category: 1,
+      date: datetimeNow.toLocaleDateString(),
+      from_account: 2,
+      name: name,
+      // owner: string,
+      time: `${datetimeNow.getHours()}:${datetimeNow.getMinutes()}:${datetimeNow.getSeconds()}`,
+      owner: session?.user.id ?? "",
+      // to_account: number | null
+      type: entryType,
+    });
+
+    router.navigate("/");
+  }
 
   const animationConfigs = useBottomSheetSpringConfigs({
     damping: 80,
@@ -232,6 +255,8 @@ function NewEntry() {
             <View className="flex flex-row items-center p-4">
               <PencilLine className=" text-cpg dark:text-dpg" size="15px" />
               <TextInput
+                onChangeText={(text) => setName(text)}
+                value={name}
                 className="w-full pl-4 text-base font-il text-cpg dark:text-dpg"
                 placeholder="Food and Drinks"
                 hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
@@ -262,11 +287,12 @@ function NewEntry() {
           </BottomSheetScrollView> */}
         </View>
       </BottomSheet>
-      <Link href="/" asChild>
-        <TouchableOpacity className="absolute bg-cprimary dark:bg-dprimary rounded-lg bottom-8 right-8 w-[72px] h-[72px] flex justify-center items-center">
-          <Check className="text-white" size="42px" />
-        </TouchableOpacity>
-      </Link>
+      <TouchableOpacity
+        onPress={createEntry}
+        className="absolute bg-cprimary dark:bg-dprimary rounded-lg bottom-8 right-8 w-[72px] h-[72px] flex justify-center items-center"
+      >
+        <Check className="text-white" size="42px" />
+      </TouchableOpacity>
       <BottomSheet
         ref={bottomInputRef}
         index={1}

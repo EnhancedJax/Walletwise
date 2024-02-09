@@ -81,34 +81,37 @@ export type Database = {
           amount: number
           category: number | null
           date: string
-          entry_type: string | null
           from_account: number | null
           id: number
+          name: string | null
           owner: string
           time: string
           to_account: number | null
+          type: number
         }
         Insert: {
           amount: number
           category?: number | null
           date: string
-          entry_type?: string | null
           from_account?: number | null
           id?: never
+          name?: string | null
           owner: string
           time: string
           to_account?: number | null
+          type?: number
         }
         Update: {
           amount?: number
           category?: number | null
           date?: string
-          entry_type?: string | null
           from_account?: number | null
           id?: never
+          name?: string | null
           owner?: string
           time?: string
           to_account?: number | null
+          type?: number
         }
         Relationships: [
           {

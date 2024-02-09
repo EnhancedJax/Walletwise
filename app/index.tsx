@@ -82,25 +82,25 @@ function Dashboard() {
 }
 
 const Entry = ({ entry }: { entry: any }) => {
-  const { accounts, entries, categories } = useData();
+  // const { accounts, entries, categories } = useData();
 
   const formattedDate = format(entry.date, "dd/MM");
-  var accString = "";
-  if (entry.type == 2) {
-    accString =
-      accounts[entry.from_account].name +
-      " -> " +
-      accounts[entry.transfer_account].name;
-  } else {
-    accString = String("accounts[entry.from_account].name");
-  }
+  var accString = "Solve later";
+  // if (entry.type == 2) {
+  //   accString =
+  //     accounts[entry.from_account].name +
+  //     " -> " +
+  //     accounts[entry.transfer_account].name;
+  // } else {
+  //   accString = accounts[entry.from_account].name;
+  // }
   return (
     <View className="rounded-md">
       <TouchableNativeFeedback
         onPress={() => console.log("Entry clicked")}
         background={TouchableNativeFeedback.Ripple(
           "rgba(150,150,150,0.1)",
-          true,
+          true
         )}
       >
         <View className="flex flex-row items-center justify-between w-full p-4">
@@ -113,9 +113,9 @@ const Entry = ({ entry }: { entry: any }) => {
             </View>
             <View>
               <Text className="text-base font-medium font-im">
-                {String(entry.name)}
+                {String(entry.name ? entry.name : entry.category)}
               </Text>
-              <Text numberOfLines={1} className="w-2/3 text-sm font-il">
+              <Text numberOfLines={1} className="text-sm font-il">
                 {accString} ⋅ {formattedDate}
               </Text>
             </View>
@@ -125,8 +125,8 @@ const Entry = ({ entry }: { entry: any }) => {
               entry.type == 0
                 ? "text-cbalneg dark:text-dbalneg"
                 : entry.type == 1
-                  ? "text-cbalpos dark:text-dbalpos"
-                  : "text-cpg dark:text-dpg2"
+                ? "text-cbalpos dark:text-dbalpos"
+                : "text-cpg dark:text-dpg2"
             }`}
           >
             {entry.type == 0 ? "-" : entry.type == 1 ? "+" : ""}$
