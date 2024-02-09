@@ -1,4 +1,4 @@
-import { TablesInsert } from "../types/supabase";
+import { Tables, TablesInsert } from "../types/supabase";
 import useSession from "./useSession";
 import {
   addDBAccount,
@@ -19,8 +19,12 @@ export function useUpdateData() {
     if (!session) return;
     const accounts = await fetchDBAccounts(session);
     if (!accounts) return;
-    setAccounts(accounts);
-    AsyncStorage.setItem("accounts", JSON.stringify(accounts));
+    const accsObj: Record<number, Tables<"accounts">> = accounts.reduce(
+      (accounts, account) => ({ ...accounts, [account.id]: account }),
+      {},
+    );
+    AsyncStorage.setItem("accounts", JSON.stringify(accsObj));
+    setAccounts(accsObj);
   }
   async function pullCategories() {
     if (!session) return;
