@@ -28,5 +28,6 @@ Back-end Todo:
   ✔ Do the back end of your mom
   ✔ update local storage whenever fetched
   ✔ use local storage for initial load
+  ☐ Add function to delete row
   ☐ Google Auth
 Archive:
