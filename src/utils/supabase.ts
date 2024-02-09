@@ -107,6 +107,52 @@ export async function updateDBEntry(
 }
 
 /*
+ * DELETE
+ */
+
+export async function deleteDBAccount(id: number) {
+  const { data, error } = await supabase.from("accounts").delete().eq("id", id);
+
+  if (error) {
+    Toast.show(error.message, {
+      textColor: "#FF8888",
+    });
+    console.error(error);
+    return false;
+  }
+  return true;
+}
+
+export async function deleteDBCategory(id: number) {
+  const { data, error } = await supabase
+    .from("categories")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    Toast.show(error.message, {
+      textColor: "#FF8888",
+    });
+    console.error(error);
+    return false;
+  }
+  return true;
+}
+
+export async function deleteDBEntry(id: number) {
+  const { data, error } = await supabase.from("entries").delete().eq("id", id);
+
+  if (error) {
+    Toast.show(error.message, {
+      textColor: "#FF8888",
+    });
+    console.error(error);
+    return false;
+  }
+  return true;
+}
+
+/*
  * FETCH
  */
 
