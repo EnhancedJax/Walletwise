@@ -3,6 +3,9 @@ import { Tables, TablesInsert } from "../types/supabase";
 import { supabase } from "./supabaseInit";
 import Toast from "react-native-root-toast";
 
+/*
+ * ADD
+ */
 export async function addDBAccount(account: TablesInsert<"accounts">) {
   const { data, error } = await supabase.from("accounts").insert(account);
   if (error) {
@@ -38,6 +41,74 @@ export async function addDBEntry(entry: TablesInsert<"entries">) {
   }
   return true;
 }
+
+/*
+ * UPDATE
+ */
+
+export async function updateDBAccount(
+  id: number,
+  account: TablesInsert<"accounts">,
+) {
+  const { data, error } = await supabase
+    .from("accounts")
+    .update(account)
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    Toast.show(error.message, {
+      textColor: "#FF8888",
+    });
+    console.error(error);
+    return false;
+  }
+  return true;
+}
+
+export async function updateDBCategory(
+  id: number,
+  category: TablesInsert<"categories">,
+) {
+  const { data, error } = await supabase
+    .from("categories")
+    .update(category)
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    Toast.show(error.message, {
+      textColor: "#FF8888",
+    });
+    console.error(error);
+    return false;
+  }
+  return true;
+}
+
+export async function updateDBEntry(
+  id: number,
+  entry: TablesInsert<"entries">,
+) {
+  const { data, error } = await supabase
+    .from("entries")
+    .update(entry)
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    Toast.show(error.message, {
+      textColor: "#FF8888",
+    });
+    console.error(error);
+    return false;
+  }
+  return true;
+}
+
+/*
+ * FETCH
+ */
 
 export async function fetchDBAccounts(session: Session) {
   let { data: accounts, error } = await supabase
