@@ -13,8 +13,10 @@ Front-end Todo:
   ☐ @new     Automatic darkmode support
   Logic:
   ☐ Edit and remove accounts
+  ☐ Drive the boat
   ✔ Numpad operators @done(24-02-06 09:20)
   ☐ Numpad responsiveness
+  ☐ Back button in new account page
   Majors:
   ☐ Expense structure block
   ☐ Statistics page
@@ -24,7 +26,7 @@ Back-end Todo:
   ✔ Fetch after updating db
   ✔ Separate fetching to new file
   ✔ Do the back end of your mom
-  ☐ update local storage whenever fetched
-  ☐ use local storage for initial load
+  ✔ update local storage whenever fetched
+  ✔ use local storage for initial load
   ☐ Google Auth
 Archive:
