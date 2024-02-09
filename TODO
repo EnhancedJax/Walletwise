@@ -6,7 +6,7 @@ Front-end Todo:
   ✔ @finish   Finalize numpad visuals (obvious call to action, equal to close) @done(24-02-07 16:21)
   ☐ @fix      Numpad snap to correct position
   ✘ @change  Componentize numpad @cancelled(24-02-09 12:04)
-  ☐ @change  Numpad for new account amount entry
+  ✔ @change  Numpad for new account amount entry @done(24-02-09 12:18)
   ☐ @new     Select dropdown for color
   ☐ @fix      Entry category info display
   ☐ @change  Componentize inputs
