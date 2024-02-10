@@ -30,21 +30,23 @@ function AccountCard({
   return (
     <View>
       <TouchableWithoutFeedback onPress={onClick} onLongPress={onLongClick}>
-        <LinearGradient
-          colors={accountColors[accountItem.colors]}
-          className={`mr-4 flex h-[136px] w-[136px] flex-col items-start justify-center rounded-lg p-4 ${
-            isClicked ? "opacity-70" : ""
-          }`}
-          start={{ x: 0, y: 1 }}
-          end={{ x: 1, y: 0 }}
-        >
-          <Text className="mb-2 text-white font-il">
-            {String(accountItem.name)}
-          </Text>
-          <Text className="text-xl text-white font-isb">
-            ${String(accountItem.balance)}
-          </Text>
-        </LinearGradient>
+        <View className="rounded-lg">
+          <LinearGradient
+            colors={accountColors[accountItem.colors]}
+            start={{ x: 0, y: 1 }}
+            className={`mr-4 flex h-[136px] w-[136px] flex-col items-start justify-center rounded-lg p-4 ${
+              isClicked ? "opacity-70" : ""
+            }`}
+            end={{ x: 1, y: 0 }}
+          >
+            <Text className="mb-2 text-white font-il">
+              {String(accountItem.name)}
+            </Text>
+            <Text className="text-xl text-white font-isb">
+              ${String(accountItem.balance)}
+            </Text>
+          </LinearGradient>
+        </View>
       </TouchableWithoutFeedback>
     </View>
   );

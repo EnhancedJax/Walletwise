@@ -22,8 +22,9 @@ function Dashboard() {
   return (
     <SafeAreaView className="w-screen h-screen bg-cbg dark:bg-dbg">
       <View className="sticky flex flex-row items-center justify-between w-full bg-cfg dark:bg-dfg rounded-b-md p-7">
-        <Text className="text-2xl font-ib">
-          Wallet<Text className="text-cprimary dark:text-dprimary">Wise</Text>
+        <Text className="text-2xl font-ib ">
+          <Text className=" text-cpg dark:text-dpg">Wallet</Text>
+          <Text className="text-cprimary dark:text-dprimary">Wise</Text>
         </Text>
         <Link href="/settings" asChild>
           <TouchableOpacity
@@ -121,10 +122,13 @@ const Entry = ({ entry }: { entry: any }) => {
               <Utensils className="text-cpg dark:text-dpg" size="16px" />
             </View>
             <View>
-              <Text className="text-base font-medium font-im">
+              <Text className="text-base font-medium font-im text-cpg dark:text-dpg">
                 {String(entry.name ? entry.name : entry.category)}
               </Text>
-              <Text numberOfLines={1} className="text-sm font-il">
+              <Text
+                numberOfLines={1}
+                className="text-sm font-il text-cpg dark:text-dpg"
+              >
                 {accString} ⋅ {formattedDate}
               </Text>
             </View>

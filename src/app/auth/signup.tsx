@@ -69,10 +69,11 @@ export default function Auth() {
 
   if (session && session.user) return <Redirect href={"/"} />;
   return (
-    <SafeAreaView>
+    <SafeAreaView className="bg-cbg dark:bg-dbg">
       <View className="flex items-center justify-center w-full h-full p-7">
-        <Text className="text-2xl font-ib mb-7">
-          Wallet<Text className="text-cprimary dark:text-dprimary">Wise</Text>
+        <Text className="text-2xl font-ib mb-7 ">
+          <Text className="text-cpg dark:text-dpg">Wallet</Text>
+          <Text className="text-cprimary dark:text-dprimary">Wise</Text>
         </Text>
         <OptionsWrapper>
           <OptionRow>
@@ -110,9 +111,7 @@ export default function Auth() {
         </OptionsWrapper>
         <View className="flex w-full p-4 rounded-md mt-7 bg-cprimary dark:dprimary mb-7">
           <TouchableComponent onPress={() => signUpWithEmail()}>
-            <Text className="text-center text-cfg dark:text-dfg font-ir">
-              Sign up
-            </Text>
+            <Text className="text-center text-white font-ir">Sign up</Text>
           </TouchableComponent>
         </View>
         <Link href="/auth/login" asChild>

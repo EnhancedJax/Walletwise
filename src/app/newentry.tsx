@@ -252,8 +252,12 @@ function NewEntry() {
           </View>
           <View className="flex w-full p-4 mb-4 rounded-md bg-cfg dark:bg-dfg">
             <View className="flex flex-row items-center justify-between mb-4">
-              <Text className="text-xs text-base font-il">Account</Text>
-              <Text className="text-xs text-base font-il">Category</Text>
+              <Text className="text-xs text-base font-il text-cpg dark:text-dpg">
+                Account
+              </Text>
+              <Text className="text-xs text-base font-il text-cpg dark:text-dpg">
+                Category
+              </Text>
             </View>
             <View className="flex flex-row items-center justify-between h-[92px]">
               <TouchableWithoutFeedback>
@@ -343,7 +347,7 @@ function NewEntry() {
         animateOnMount={false}
         // backdropComponent={renderBackdrop}
       >
-        <View className="flex flex-row w-full h-full px-7 pb-7">
+        <View className="flex flex-row w-full h-full px-7 pb-7 bg-cfg dark:bg-dfg">
           <View className="flex flex-col grow">
             <Row>
               <NumpadTile onPress={() => handleNumpad(1)} text="1" />
@@ -366,7 +370,7 @@ function NewEntry() {
               <NumpadTile onPress={() => handleNumpad(-2)} text="⌫" />
             </Row>
           </View>
-          <View className="flex flex-col w-[72px] bg-cbg rounded-md">
+          <View className="flex flex-col w-[72px] bg-cbg dark:bg-dbg rounded-md">
             <NumpadTile onPress={() => handleNumpad(111)} text="×" />
             <NumpadTile onPress={() => handleNumpad(222)} text="÷" />
             <NumpadTile onPress={() => handleNumpad(333)} text="-" />
@@ -439,7 +443,9 @@ const NumpadTile: React.FC<NumpadTileProps> = ({ onPress, text }) => {
         className="flex items-center justify-center grow"
       >
         <View className="flex items-center justify-center grow">
-          <Text className="text-2xl text-ib">{text}</Text>
+          <Text className="text-2xl text-ib text-cpg dark:text-dpg">
+            {text}
+          </Text>
         </View>
       </TouchableComponent>
     </View>

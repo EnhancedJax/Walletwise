@@ -204,7 +204,7 @@ function NewAcc() {
         enableContentPanningGesture={false}
       >
         <View
-          className="flex flex-row flex-wrap items-center justify-center w-full h-full px-7 pb-7"
+          className="flex flex-row flex-wrap items-center justify-center w-full h-full px-7 pb-7 bg-cbg dark:bg-dbg"
           style={{ gap: 16 }}
         >
           {Object.keys(accountColors).map((color, index) => (
