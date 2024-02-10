@@ -61,9 +61,15 @@ function Dashboard() {
             Transactions
           </H1>
           <View className="w-full rounded-md bg-cfg dark:bg-dfg">
-            {entries.map((entry, index) => (
-              <Entry key={index} entry={entry} />
-            ))}
+            {entries
+              .sort((a, b) => {
+                const aDateTime = new Date(`${a.date} ${a.time}`);
+                const bDateTime = new Date(`${b.date} ${b.time}`);
+                return bDateTime.getTime() - aDateTime.getTime();
+              })
+              .map((entry, index) => (
+                <Entry key={index} entry={entry} />
+              ))}
           </View>
         </View>
       </ScrollView>

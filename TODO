@@ -12,13 +12,14 @@ Front-end Todo:
   ✔ @change  Componentize inputs @done(24-02-10 15:23)
   ☐ @new     Automatic darkmode support
   Logic:
-  ☐ Edit and remove accounts
+  ✔ Edit and remove accounts @done(24-02-10 17:24)
   ✔ Numpad operators @done(24-02-06 09:20)
   ☐ Numpad responsiveness
-  ☐ Back button in new account page
+  ☐ Back buttons
   Majors:
   ☐ Expense structure block
   ☐ Statistics page
+  ☐ Entries actually change balance
 
 Back-end Todo:
   Majors:

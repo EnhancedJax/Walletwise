@@ -33,6 +33,7 @@ import { useUpdateData } from "../src/hooks/useUpdateData";
 import useSession from "../src/hooks/useSession";
 import { useData } from "../src/hooks/useData";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import accountColors from "../src/colors.json";
 
 function NewEntry() {
   const { accounts, entries, categories } = useData();
@@ -259,7 +260,7 @@ function NewEntry() {
                 <LinearGradient
                   colors={
                     index
-                      ? [accounts[index].color1, accounts[index].color2]
+                      ? accountColors[accounts[index].colors]
                       : ["#000", "#000"]
                   }
                   className="flex flex-col items-center justify-center w-[47%] h-full p-4 mr-4 rounded-lg"
