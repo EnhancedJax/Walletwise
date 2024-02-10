@@ -431,14 +431,14 @@ interface NumpadTileProps {
 const NumpadTile: React.FC<NumpadTileProps> = ({ onPress, text }) => {
   return (
     <View className="justify-center grow">
-      <TouchableNativeFeedback
+      <TouchableComponent
         onPressIn={onPress}
         className="flex items-center justify-center grow"
       >
         <View className="flex items-center justify-center grow">
           <Text className="text-2xl text-ib">{text}</Text>
         </View>
-      </TouchableNativeFeedback>
+      </TouchableComponent>
     </View>
   );
 };

@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  Modal,
 } from "react-native";
 import useSession from "../src/hooks/useSession";
 import {
@@ -26,6 +27,7 @@ import BottomSheet, {
   BottomSheetBackdrop,
   useBottomSheetSpringConfigs,
 } from "@gorhom/bottom-sheet";
+import accountColors from "../src/colors.json";
 
 function NewAcc() {
   const [name, setName] = useState("");
@@ -34,14 +36,17 @@ function NewAcc() {
   const currency = "HKD $";
   const { addAccount } = useUpdateData();
   const bottomInputRef = useRef<BottomSheet>(null);
+  const bottomColorRef = useRef<BottomSheet>(null);
   const snapPointsInput = useMemo(() => ["1%", "50%"], []);
+  const snapPointsColor = useMemo(() => ["1%", "35%"], []);
+  const [selectedColor, setSelectedColor] = useState("blue");
 
   async function createAccount() {
     await addAccount({
       name: name,
       balance: Number(amount),
-      color1: "#000000",
-      color2: "#000000",
+      color1: accountColors[selectedColor][0],
+      color2: accountColors[selectedColor][1],
       owner: String(session?.user.id),
     });
 
@@ -89,7 +94,7 @@ function NewAcc() {
       <View className="flex w-full p-7">
         <H1>New Account</H1>
         <LinearGradient
-          colors={["#000", "#000"]}
+          colors={accountColors[selectedColor]}
           className="flex flex-col items-start justify-center p-4 rounded-lg w-full h-[136px] mr-4"
           start={{ x: 0, y: 1 }}
           end={{ x: 1, y: 0 }}
@@ -134,9 +139,18 @@ function NewAcc() {
             </View>
           </TouchableComponent>
           <OptionRule />
-          <View className="flex flex-row items-center p-4">
-            <Palette className=" text-cpg dark:text-dpg" size="15px" />
-          </View>
+          <TouchableComponent onPress={() => bottomColorRef.current?.expand()}>
+            <View className="flex flex-row items-center w-full p-4 ">
+              <Palette className=" text-cpg dark:text-dpg" size="15px" />
+
+              <LinearGradient
+                colors={accountColors[selectedColor]}
+                className="ml-4 rounded-lg grow h-[24px]"
+                start={{ x: 0, y: 1 }}
+                end={{ x: 1, y: 0 }}
+              />
+            </View>
+          </TouchableComponent>
         </View>
       </View>
       <TouchableOpacity
@@ -179,6 +193,35 @@ function NewAcc() {
           </View>
         </View>
       </BottomSheet>
+
+      <BottomSheet
+        ref={bottomColorRef}
+        index={-1}
+        snapPoints={snapPointsColor}
+        animationConfigs={animationConfigs}
+        overDragResistanceFactor={10}
+        enableContentPanningGesture={false}
+      >
+        <View
+          className="flex flex-row flex-wrap items-center justify-center w-full h-full px-7 pb-7"
+          style={{ gap: 16 }}
+        >
+          {Object.keys(accountColors).map((color, index) => (
+            <TouchableComponent
+              onPress={() => setSelectedColor(color)}
+              key={index}
+              className="flex items-center justify-center grow"
+            >
+              <LinearGradient
+                colors={accountColors[color]}
+                className="w-16 h-16 rounded-lg"
+                start={{ x: 0, y: 1 }}
+                end={{ x: 1, y: 0 }}
+              />
+            </TouchableComponent>
+          ))}
+        </View>
+      </BottomSheet>
     </SafeAreaView>
   );
 }
@@ -199,7 +242,9 @@ const NumpadTile: React.FC<NumpadTileProps> = ({ onPress, text }) => {
         onPressIn={onPress}
         className="flex items-center justify-center grow"
       >
-        <Text className="text-2xl text-ib">{text}</Text>
+        <View className="flex items-center justify-center grow">
+          <Text className="text-2xl text-ib">{text}</Text>
+        </View>
       </TouchableComponent>
     </View>
   );

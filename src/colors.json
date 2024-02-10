@@ -1,0 +1,14 @@
+{
+    "blue": ["#3385ff", "#4ECAFF"],
+    "orange": ["#FF6320", "#FF984E"],
+    "purple": ["#e70cff", "#ff74e5"],
+    "green": ["#5ea24b", "#9ac75f"],
+    "darkblue": ["#20508a", "#478de8"],
+    "gold": ["#ffc200", "#ffde4e"],
+    "leather": ["#97572b", "#e7833f"],
+    "off": ["#dec189", "#fff8de"],
+    "gray": ["#626262", "#898989"],
+    "silver": ["#909090", "#ededed"],
+    "visa": ["#1A1E6A", "#e6b43d"],
+    "core": ["#ff321d", "#ffcc4e"]
+}

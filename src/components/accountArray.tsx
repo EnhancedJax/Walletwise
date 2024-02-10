@@ -17,21 +17,18 @@ interface AccountCardProps {
   isClicked: boolean;
   onClick: () => void;
   accountItem: any;
-  onRemove: () => void;
+  onLongClick: () => void;
 }
 
 function AccountCard({
   isClicked,
   onClick,
   accountItem,
-  onRemove,
+  onLongClick,
 }: AccountCardProps) {
   return (
     <View>
-      <TouchableWithoutFeedback
-        onPress={onClick}
-        onLongPress={() => console.log("edit")}
-      >
+      <TouchableWithoutFeedback onPress={onClick} onLongPress={onLongClick}>
         <LinearGradient
           colors={[accountItem.color1, accountItem.color2]}
           className={`mr-4 flex h-[136px] w-[136px] flex-col items-start justify-center rounded-lg p-4 ${
@@ -48,15 +45,6 @@ function AccountCard({
           </Text>
         </LinearGradient>
       </TouchableWithoutFeedback>
-      {/* <TouchableWithoutFeedback onPress={onRemove}>
-        <View
-          className={`bg-cprimary dark:bg-dprimary absolute right-2 flex h-8 w-8 items-center justify-center rounded-lg ${
-            edit ? "block" : "hidden"
-          }`}
-        >
-          <Edit className="text-white" size="20px" />
-        </View>
-      </TouchableWithoutFeedback> */}
     </View>
   );
 }
@@ -94,8 +82,8 @@ const AccountArray = ({
       console.error(e);
     }
   };
-  const handleRemove = (index: number) => {
-    console.log(`Removing ${index}`);
+  const handleLongClick = (index: number, id: number) => {
+    console.log(`Removing ${id}`);
   };
   return (
     <ScrollView
@@ -109,7 +97,7 @@ const AccountArray = ({
           isClicked={clickStates[index]}
           onClick={() => handleClick(index, id)}
           accountItem={accountObj[id]}
-          onRemove={() => handleRemove(index)}
+          onLongClick={() => handleLongClick(index, id)}
         />
       ))}
       <View className="mr-20 flex h-[136px] justify-center">
