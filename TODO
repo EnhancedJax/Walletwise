@@ -9,7 +9,7 @@ Front-end Todo:
   ✔ @change  Numpad for new account amount entry @done(24-02-09 12:18)
   ☐ @new     Select dropdown for color
   ☐ @fix      Entry category info display
-  ☐ @change  Componentize inputs
+  ✔ @change  Componentize inputs @done(24-02-10 15:23)
   ☐ @new     Automatic darkmode support
   Logic:
   ☐ Edit and remove accounts

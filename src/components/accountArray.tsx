@@ -74,7 +74,7 @@ const AccountArray = ({
       accountObj ? new Array(Object.keys(accountObj).length).fill(false) : []
     );
   }, [accountObj]);
-  const handleClick = async (index: number) => {
+  const handleClick = async (index: number, id: number) => {
     setClickStates((prevStates) => {
       const allFalse = prevStates.every((state) => state === false);
       if (allFalse) {
@@ -86,8 +86,8 @@ const AccountArray = ({
       }
     });
     try {
-      console.log(`Setting ${index}`);
-      await AsyncStorage.setItem("selectedAccount", index.toString());
+      console.log(`Setting ${id.toString()}`);
+      await AsyncStorage.setItem("selectedAccount", id.toString());
       // console.log(await AsyncStorage.getItem("selectedAccount"));
     } catch (e) {
       // saving error
@@ -107,7 +107,7 @@ const AccountArray = ({
         <AccountCard
           key={index}
           isClicked={clickStates[index]}
-          onClick={() => handleClick(index)}
+          onClick={() => handleClick(index, id)}
           accountItem={accountObj[id]}
           onRemove={() => handleRemove(index)}
         />

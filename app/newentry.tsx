@@ -42,7 +42,7 @@ function NewEntry() {
   const { addEntry } = useUpdateData();
   const { session } = useSession();
   const datetimeNow = new Date();
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(undefined);
   useEffect(() => {
     const getValueFromAsyncStorage = async () => {
       try {
@@ -56,7 +56,7 @@ function NewEntry() {
 
     const setIndexValue = async () => {
       const value = await getValueFromAsyncStorage();
-      setIndex(Number(value) ?? 0); // Convert the value to a number before assigning it to the index state variable, defaulting to 0 if value is NaN or undefined
+      setIndex(Number(value) ?? 0);
     };
 
     setIndexValue();
@@ -255,16 +255,20 @@ function NewEntry() {
             <View className="flex flex-row items-center justify-between h-[92px]">
               <TouchableWithoutFeedback>
                 <LinearGradient
-                  colors={[accounts[index].color1, accounts[index].color2]}
+                  colors={
+                    index
+                      ? [accounts[index].color1, accounts[index].color2]
+                      : ["#000", "#000"]
+                  }
                   className="flex flex-col items-center justify-center w-[47%] h-full p-4 mr-4 rounded-lg"
                   start={{ x: 0, y: 1 }}
                   end={{ x: 1, y: 0 }}
                 >
                   <Text className="mb-2 text-white font-il">
-                    {String(accounts[index].name)}
+                    {String(index ? accounts[index].name : "Account")}
                   </Text>
                   <Text className="text-xl text-white font-isb">
-                    ${String(accounts[index].balance)}
+                    ${String(index ? accounts[index].balance : "0.00")}
                   </Text>
                 </LinearGradient>
               </TouchableWithoutFeedback>
