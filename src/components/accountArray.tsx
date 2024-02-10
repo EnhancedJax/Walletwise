@@ -25,13 +25,11 @@ function AccountCard({
   accountItem,
   onRemove,
 }: AccountCardProps) {
-  const [edit, setEdit] = useState(false);
-
   return (
     <View>
       <TouchableWithoutFeedback
         onPress={onClick}
-        onLongPress={() => setEdit(!edit)}
+        onLongPress={() => console.log("edit")}
       >
         <LinearGradient
           colors={[accountItem.color1, accountItem.color2]}
@@ -41,15 +39,15 @@ function AccountCard({
           start={{ x: 0, y: 1 }}
           end={{ x: 1, y: 0 }}
         >
-          <Text className="font-il mb-2 text-white">
+          <Text className="mb-2 text-white font-il">
             {String(accountItem.name)}
           </Text>
-          <Text className="font-isb text-xl text-white">
+          <Text className="text-xl text-white font-isb">
             ${String(accountItem.balance)}
           </Text>
         </LinearGradient>
       </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback onPress={onRemove}>
+      {/* <TouchableWithoutFeedback onPress={onRemove}>
         <View
           className={`bg-cprimary dark:bg-dprimary absolute right-2 flex h-8 w-8 items-center justify-center rounded-lg ${
             edit ? "block" : "hidden"
@@ -57,7 +55,7 @@ function AccountCard({
         >
           <Edit className="text-white" size="20px" />
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback> */}
     </View>
   );
 }
@@ -68,17 +66,24 @@ const AccountArray = ({
   accountObj: Record<number, Tables<"accounts">>;
 }) => {
   const [clickStates, setClickStates] = useState(
-    accountObj ? new Array(Object.keys(accountObj).length).fill(false) : [],
+    accountObj ? new Array(Object.keys(accountObj).length).fill(false) : []
   );
   useEffect(() => {
     setClickStates(
-      accountObj ? new Array(Object.keys(accountObj).length).fill(false) : [],
+      accountObj ? new Array(Object.keys(accountObj).length).fill(false) : []
     );
   }, [accountObj]);
   const handleClick = (index: number) => {
-    setClickStates((prevStates) =>
-      prevStates.map((state, i) => (i === index ? !state : state)),
-    );
+    setClickStates((prevStates) => {
+      const allFalse = prevStates.every((state) => state === false);
+      if (allFalse) {
+        return prevStates.map((_, i) => (i === index ? false : true));
+      } else if (prevStates[index] === false) {
+        return prevStates.map(() => false);
+      } else {
+        return prevStates.map((_, i) => (i === index ? false : true));
+      }
+    });
   };
   const handleRemove = (index: number) => {
     console.log(`Removing ${index}`);

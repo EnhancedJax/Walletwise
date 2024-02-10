@@ -10,8 +10,7 @@ import {
 } from "react-native";
 import { Check, Clock, PencilLine, Utensils } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { testAccounts, testCategories } from "../src/data";
-import { Link, router } from "expo-router";
+import { Link, router, useLocalSearchParams } from "expo-router";
 import BottomSheet, {
   BottomSheetBackdrop,
   useBottomSheetSpringConfigs,
@@ -23,24 +22,33 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { H1, Hrule, TouchableComponent } from "../src/components/essentials";
+import {
+  H1,
+  OptionRow,
+  OptionRule,
+  OptionsWrapper,
+  TouchableComponent,
+} from "../src/components/essentials";
 import { useUpdateData } from "../src/hooks/useUpdateData";
 import useSession from "../src/hooks/useSession";
+import { useData } from "../src/hooks/useData";
 
 function NewEntry() {
+  const { accounts, entries, categories } = useData();
   const [entryType, setEntryType] = useState(0);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState(0.0);
   const { addEntry } = useUpdateData();
   const { session } = useSession();
   const datetimeNow = new Date();
+  const index = useLocalSearchParams().account_id;
 
   async function createEntry() {
     await addEntry({
       amount: amount,
       category: 1,
       date: datetimeNow.toLocaleDateString(),
-      from_account: 2,
+      from_account: index,
       name: name,
       // owner: string,
       time: `${datetimeNow.getHours()}:${datetimeNow.getMinutes()}:${datetimeNow.getSeconds()}`,
@@ -180,7 +188,7 @@ function NewEntry() {
                 {amount.toFixed(2)}
               </Text>
             </TouchableOpacity>
-            <Hrule />
+            <OptionRule />
             <View className="flex flex-row items-center justify-center px-0 py-4">
               <TouchableOpacity onPress={() => setEntryType(1)}>
                 <View className="flex flex-col items-center mr-4 ">
@@ -228,16 +236,16 @@ function NewEntry() {
             <View className="flex flex-row items-center justify-between h-[92px]">
               <TouchableWithoutFeedback>
                 <LinearGradient
-                  colors={testAccounts[0].gradient}
+                  colors={[accounts[index].color1, accounts[index].color2]}
                   className="flex flex-col items-center justify-center w-[47%] h-full p-4 mr-4 rounded-lg"
                   start={{ x: 0, y: 1 }}
                   end={{ x: 1, y: 0 }}
                 >
                   <Text className="mb-2 text-white font-il">
-                    {String(testAccounts[0].name)}
+                    {String(accounts[index].name)}
                   </Text>
                   <Text className="text-xl text-white font-isb">
-                    ${String(testAccounts[0].balance)}
+                    ${String(accounts[index].balance)}
                   </Text>
                 </LinearGradient>
               </TouchableWithoutFeedback>
@@ -245,7 +253,7 @@ function NewEntry() {
                 <View
                   className="flex flex-col items-center justify-center w-[47%] h-full p-4 mr-4 rounded-lg"
                   style={{
-                    backgroundColor: testCategories["Food & Drinks"].color,
+                    backgroundColor: "categories[index].color",
                   }}
                 >
                   <Utensils className="text-cpg dark:text-dpg" size="24px" />
@@ -257,8 +265,8 @@ function NewEntry() {
             </View>
           </View>
 
-          <View className="flex w-full rounded-md bg-cfg dark:bg-dfg">
-            <View className="flex flex-row items-center p-4">
+          <OptionsWrapper>
+            <OptionRow>
               <PencilLine className=" text-cpg dark:text-dpg" size="15px" />
               <TextInput
                 onChangeText={(text) => setName(text)}
@@ -267,15 +275,15 @@ function NewEntry() {
                 placeholder="Food and Drinks"
                 hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
               />
-            </View>
-            <Hrule />
-            <View className="flex flex-row items-center p-4">
+            </OptionRow>
+            <OptionRule />
+            <OptionRow>
               <Clock className=" text-cpg dark:text-dpg" size="15px" />
               <Text className="pl-4 text-base font-il text-cpg dark:text-dpg">
                 30 Jan 12:00 AM
               </Text>
-            </View>
-          </View>
+            </OptionRow>
+          </OptionsWrapper>
         </View>
       </ScrollView>
       <BottomSheet
