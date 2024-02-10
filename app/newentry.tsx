@@ -16,7 +16,13 @@ import BottomSheet, {
   BottomSheetBackdrop,
   useBottomSheetSpringConfigs,
 } from "@gorhom/bottom-sheet";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { H1, Hrule, TouchableComponent } from "../src/components/essentials";
 import { useUpdateData } from "../src/hooks/useUpdateData";
 import useSession from "../src/hooks/useSession";
@@ -295,7 +301,7 @@ function NewEntry() {
       </TouchableOpacity>
       <BottomSheet
         ref={bottomInputRef}
-        index={1}
+        index={-1}
         snapPoints={snapPointsInput}
         animationConfigs={animationConfigs}
         overDragResistanceFactor={10}
@@ -393,12 +399,14 @@ interface NumpadTileProps {
 const NumpadTile: React.FC<NumpadTileProps> = ({ onPress, text }) => {
   return (
     <View className="justify-center grow">
-      <TouchableComponent
+      <TouchableNativeFeedback
         onPressIn={onPress}
         className="flex items-center justify-center grow"
       >
-        <Text className="text-2xl text-ib">{text}</Text>
-      </TouchableComponent>
+        <View className="flex items-center justify-center grow">
+          <Text className="text-2xl text-ib">{text}</Text>
+        </View>
+      </TouchableNativeFeedback>
     </View>
   );
 };

@@ -18,9 +18,9 @@ import { H1 } from "../src/components/essentials";
 function Dashboard() {
   const { accounts, entries, categories } = useData();
   return (
-    <SafeAreaView className="bg-cbg dark:bg-dbg h-screen w-screen">
-      <View className="bg-cfg dark:bg-dfg sticky flex w-full flex-row items-center justify-between rounded-b-md p-7">
-        <Text className="font-ib text-2xl">
+    <SafeAreaView className="w-screen h-screen bg-cbg dark:bg-dbg">
+      <View className="sticky flex flex-row items-center justify-between w-full bg-cfg dark:bg-dfg rounded-b-md p-7">
+        <Text className="text-2xl font-ib">
           Wallet<Text className="text-cprimary dark:text-dprimary">Wise</Text>
         </Text>
         <Link href="/settings" asChild>
@@ -32,7 +32,7 @@ function Dashboard() {
         </Link>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View className="flex w-full flex-row items-center">
+        <View className="flex flex-row items-center w-full">
           <AccountArray accountObj={accounts} />
         </View>
 
@@ -40,17 +40,17 @@ function Dashboard() {
           <H1 optionName="details" optionhref="\details">
             Expenses
           </H1>
-          <View className="bg-cfg dark:bg-dfg flex w-full rounded-md p-4">
+          <View className="flex w-full p-4 rounded-md bg-cfg dark:bg-dfg">
             <View className="flex flex-row items-center justify-between pb-2">
-              <Text className="text-cpg dark:text-dpg font-il font-normal">
+              <Text className="font-normal text-cpg dark:text-dpg font-il">
                 $912{" "}
-                <Text className="text-cpg dark:text-dpg font-il text-xs">
+                <Text className="text-xs text-cpg dark:text-dpg font-il">
                   spent this period
                 </Text>
               </Text>
               <Text>$1,693</Text>
             </View>
-            <View className="bg-csub dark:bg-dsub flex h-10 w-full"></View>
+            <View className="flex w-full h-10 bg-csub dark:bg-dsub"></View>
           </View>
         </View>
 
@@ -58,7 +58,7 @@ function Dashboard() {
           <H1 optionName="view all" optionhref="\transactions">
             Transactions
           </H1>
-          <View className="bg-cfg dark:bg-dfg w-full rounded-md">
+          <View className="w-full rounded-md bg-cfg dark:bg-dfg">
             {entries.map((entry, index) => (
               <Entry key={index} entry={entry} />
             ))}
@@ -94,17 +94,18 @@ const Entry = ({ entry }: { entry: any }) => {
   } else {
     accString = accounts[entry.from_account]?.name;
   }
+
   return (
     <View className="rounded-md">
       <TouchableNativeFeedback
         onPress={() => console.log("Entry clicked")}
         background={TouchableNativeFeedback.Ripple(
           "rgba(150,150,150,0.1)",
-          true,
+          true
         )}
       >
-        <View className="flex w-full flex-row items-center justify-between p-4">
-          <View className="mr-4 flex shrink flex-row">
+        <View className="flex flex-row items-center justify-between w-full p-4">
+          <View className="flex flex-row mr-4 shrink">
             <View
               className="mr-4 h-[32px] w-[32px] rounded-lg p-2"
               style={{ backgroundColor: "categories[entry.category].color" }}
@@ -112,10 +113,10 @@ const Entry = ({ entry }: { entry: any }) => {
               <Utensils className="text-cpg dark:text-dpg" size="16px" />
             </View>
             <View>
-              <Text className="font-im text-base font-medium">
+              <Text className="text-base font-medium font-im">
                 {String(entry.name ? entry.name : entry.category)}
               </Text>
-              <Text numberOfLines={1} className="font-il text-sm">
+              <Text numberOfLines={1} className="text-sm font-il">
                 {accString} ⋅ {formattedDate}
               </Text>
             </View>
@@ -125,8 +126,8 @@ const Entry = ({ entry }: { entry: any }) => {
               entry.type == 0
                 ? "text-cbalneg dark:text-dbalneg"
                 : entry.type == 1
-                  ? "text-cbalpos dark:text-dbalpos"
-                  : "text-cpg dark:text-dpg2"
+                ? "text-cbalpos dark:text-dbalpos"
+                : "text-cpg dark:text-dpg2"
             }`}
           >
             {entry.type == 0 ? "-" : entry.type == 1 ? "+" : ""}$
