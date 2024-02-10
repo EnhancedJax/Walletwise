@@ -2,13 +2,12 @@ import { Stack, useRouter } from "expo-router";
 import Head from "expo-router/head";
 import * as Font from "expo-font";
 import { useEffect, useRef, useState } from "react";
-import AppLoading from "expo-app-loading";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import useSession from "../src/hooks/useSession";
 import { RootSiblingParent } from "react-native-root-siblings";
-import { styled, useColorScheme } from "nativewind";
 import { useUpdateData } from "../src/hooks/useUpdateData";
+import * as SplashScreen from "expo-splash-screen";
 
 const getFonts = () =>
   Font.loadAsync({
@@ -46,10 +45,19 @@ export default function Layout() {
   }, [session, hasRendered.current]);
 
   useEffect(() => {
+    SplashScreen.preventAutoHideAsync();
+  }, []);
+
+  useEffect(() => {
+    getFonts().then(() => setFontsLoaded(true));
+  }, []);
+
+  useEffect(() => {
     hasRendered.current = true;
   }, []);
 
   if (fontsLoaded) {
+    SplashScreen.hideAsync();
     return (
       <>
         <RootSiblingParent>
@@ -63,14 +71,6 @@ export default function Layout() {
           </GestureHandlerRootView>
         </RootSiblingParent>
       </>
-    );
-  } else {
-    return (
-      <AppLoading
-        startAsync={getFonts}
-        onError={(error) => console.error(error)}
-        onFinish={() => setFontsLoaded(true)}
-      />
     );
   }
 }
