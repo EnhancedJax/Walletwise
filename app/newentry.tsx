@@ -252,8 +252,12 @@ function NewEntry() {
           </View>
           <View className="flex w-full p-4 mb-4 rounded-md bg-cfg dark:bg-dfg">
             <View className="flex flex-row items-center justify-between mb-4">
-              <Text className="text-xs text-base font-il">Account</Text>
-              <Text className="text-xs text-base font-il">Category</Text>
+              <Text className="text-xs text-base font-il text-cpg dark:text-dpg">
+                Account
+              </Text>
+              <Text className="text-xs text-base font-il text-cpg dark:text-dpg">
+                Category
+              </Text>
             </View>
             <View className="flex flex-row items-center justify-between h-[92px]">
               <TouchableWithoutFeedback>

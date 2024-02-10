@@ -72,7 +72,8 @@ export default function Auth() {
     <SafeAreaView>
       <View className="flex items-center justify-center w-full h-full p-7">
         <Text className="text-2xl font-ib mb-7">
-          Wallet<Text className="text-cprimary dark:text-dprimary">Wise</Text>
+          <Text className=" text-cpg dark:text-dpg">Wallet</Text>
+          <Text className="text-cprimary dark:text-dprimary">Wise</Text>
         </Text>
         <OptionsWrapper>
           <OptionRow>

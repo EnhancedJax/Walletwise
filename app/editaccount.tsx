@@ -116,7 +116,7 @@ function EditAcc() {
   function handleDelete() {
     console.log(index);
     deleteAccount(index);
-    // router.navigate("/");
+    router.navigate("/");
   }
 
   return (
