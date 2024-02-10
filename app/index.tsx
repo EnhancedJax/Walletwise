@@ -10,13 +10,15 @@ import { Bolt, Plus, Utensils } from "lucide-react-native";
 import { format } from "date-fns";
 import { LinearGradient } from "expo-linear-gradient";
 
-import { Link, router } from "expo-router";
+import { Link } from "expo-router";
 import AccountArray from "../src/components/accountArray";
 import { useData } from "../src/hooks/useData";
 import { H1 } from "../src/components/essentials";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Dashboard() {
   const { accounts, entries, categories } = useData();
+
   return (
     <SafeAreaView className="w-screen h-screen bg-cbg dark:bg-dbg">
       <View className="sticky flex flex-row items-center justify-between w-full bg-cfg dark:bg-dfg rounded-b-md p-7">
@@ -72,19 +74,11 @@ function Dashboard() {
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
       />
-      {/* <Link href="/newentry" asChild> */}
-      <TouchableOpacity
-        onPress={() => {
-          router.push({
-            pathname: "/newentry",
-            params: { account_id: 1 },
-          });
-        }}
-        className="bg-cprimary dark:bg-dprimary absolute bottom-8 right-8 flex h-[72px] w-[72px] items-center justify-center rounded-lg"
-      >
-        <Plus className="text-white" size="42px" />
-      </TouchableOpacity>
-      {/* </Link> */}
+      <Link href="/newentry" asChild>
+        <TouchableOpacity className="bg-cprimary dark:bg-dprimary absolute bottom-8 right-8 flex h-[72px] w-[72px] items-center justify-center rounded-lg">
+          <Plus className="text-white" size="42px" />
+        </TouchableOpacity>
+      </Link>
     </SafeAreaView>
   );
 }

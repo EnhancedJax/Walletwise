@@ -11,6 +11,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Edit, Plus, X } from "lucide-react-native";
 import { Link } from "expo-router";
 import { Tables } from "../types/supabase";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface AccountCardProps {
   isClicked: boolean;
@@ -73,7 +74,7 @@ const AccountArray = ({
       accountObj ? new Array(Object.keys(accountObj).length).fill(false) : []
     );
   }, [accountObj]);
-  const handleClick = (index: number) => {
+  const handleClick = async (index: number) => {
     setClickStates((prevStates) => {
       const allFalse = prevStates.every((state) => state === false);
       if (allFalse) {
@@ -84,6 +85,14 @@ const AccountArray = ({
         return prevStates.map((_, i) => (i === index ? false : true));
       }
     });
+    try {
+      console.log(`Setting ${index}`);
+      await AsyncStorage.setItem("selectedAccount", index.toString());
+      // console.log(await AsyncStorage.getItem("selectedAccount"));
+    } catch (e) {
+      // saving error
+      console.error(e);
+    }
   };
   const handleRemove = (index: number) => {
     console.log(`Removing ${index}`);

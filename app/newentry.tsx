@@ -32,6 +32,7 @@ import {
 import { useUpdateData } from "../src/hooks/useUpdateData";
 import useSession from "../src/hooks/useSession";
 import { useData } from "../src/hooks/useData";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function NewEntry() {
   const { accounts, entries, categories } = useData();
@@ -41,7 +42,25 @@ function NewEntry() {
   const { addEntry } = useUpdateData();
   const { session } = useSession();
   const datetimeNow = new Date();
-  const index = useLocalSearchParams().account_id;
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const getValueFromAsyncStorage = async () => {
+      try {
+        const value = await AsyncStorage.getItem("selectedAccount");
+        console.log(value);
+        return value; // Return the value from AsyncStorage
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const setIndexValue = async () => {
+      const value = await getValueFromAsyncStorage();
+      setIndex(Number(value) ?? 0); // Convert the value to a number before assigning it to the index state variable, defaulting to 0 if value is NaN or undefined
+    };
+
+    setIndexValue();
+  }, []);
 
   async function createEntry() {
     await addEntry({

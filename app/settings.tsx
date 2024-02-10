@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { supabase } from "../src/utils/supabaseInit";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Settings() {
   return (
