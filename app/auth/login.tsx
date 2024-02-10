@@ -10,6 +10,7 @@ import {
 import { supabase } from "../../src/utils/supabaseInit";
 import useSession from "../../src/hooks/useSession";
 import { Redirect } from "expo-router";
+import { useUpdateData } from "../../src/hooks/useUpdateData";
 
 // Tells Supabase Auth to continuously refresh the session automatically if
 // the app is in the foreground. When this is added, you will continue to receive
@@ -29,6 +30,7 @@ export default function Auth() {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const { session } = useSession();
+  const { pullAccounts, pullCategories, pullEntries } = useUpdateData();
 
   async function signInWithEmail() {
     setLoading(true);
@@ -62,7 +64,12 @@ export default function Auth() {
     setLoading(false);
   }
 
-  if (session && session.user) return <Redirect href={"/"} />;
+  if (session && session.user) {
+    pullAccounts();
+    pullEntries();
+    pullCategories();
+    return <Redirect href={"/"} />;
+  }
   return (
     <View style={styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
