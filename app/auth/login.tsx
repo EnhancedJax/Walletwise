@@ -19,6 +19,7 @@ import {
   TouchableComponent,
 } from "../../src/components/essentials";
 import { Asterisk, Tag, User2 } from "lucide-react-native";
+import { useUpdateData } from "../../src/hooks/useUpdateData";
 
 AppState.addEventListener("change", (state) => {
   if (state === "active") {
@@ -34,6 +35,7 @@ export default function Auth() {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const { session } = useSession();
+  const { pullAccounts, pullCategories, pullEntries } = useUpdateData();
 
   async function signInWithEmail() {
     setLoading(true);
@@ -67,7 +69,12 @@ export default function Auth() {
     setLoading(false);
   }
 
-  if (session && session.user) return <Redirect href={"/"} />;
+  if (session && session.user) {
+    pullAccounts();
+    pullEntries();
+    pullCategories();
+    return <Redirect href={"/"} />;
+  }
   return (
     <SafeAreaView>
       <View className="flex items-center justify-center w-full h-full p-7">
