@@ -443,7 +443,9 @@ const NumpadTile: React.FC<NumpadTileProps> = ({ onPress, text }) => {
         className="flex items-center justify-center grow"
       >
         <View className="flex items-center justify-center grow">
-          <Text className="text-2xl text-ib">{text}</Text>
+          <Text className="text-2xl text-ib  text-cpg dark:text-dpg">
+            {text}
+          </Text>
         </View>
       </TouchableComponent>
     </View>
