@@ -9,9 +9,10 @@ import {
 import { useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Edit, Plus, X } from "lucide-react-native";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { Tables } from "../types/supabase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import accountColors from "../colors.json";
 
 interface AccountCardProps {
   isClicked: boolean;
@@ -30,7 +31,7 @@ function AccountCard({
     <View>
       <TouchableWithoutFeedback onPress={onClick} onLongPress={onLongClick}>
         <LinearGradient
-          colors={[accountItem.color1, accountItem.color2]}
+          colors={accountColors[accountItem.colors]}
           className={`mr-4 flex h-[136px] w-[136px] flex-col items-start justify-center rounded-lg p-4 ${
             isClicked ? "opacity-70" : ""
           }`}
@@ -82,9 +83,11 @@ const AccountArray = ({
       console.error(e);
     }
   };
-  const handleLongClick = (index: number, id: number) => {
-    console.log(`Removing ${id}`);
+  const handleLongClick = async (index: number, id: number) => {
+    await AsyncStorage.setItem("selectedAccount", id.toString());
+    router.navigate("/editaccount");
   };
+  // console.log("accountObj", accountObj);
   return (
     <ScrollView
       horizontal

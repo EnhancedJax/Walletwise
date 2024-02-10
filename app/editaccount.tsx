@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   SafeAreaView,
   View,
@@ -30,21 +30,44 @@ import BottomSheet, {
   useBottomSheetSpringConfigs,
 } from "@gorhom/bottom-sheet";
 import accountColors from "../src/colors.json";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useData } from "../src/hooks/useData";
 
-function NewAcc() {
-  const [name, setName] = useState("");
-  const [amount, setAmount] = useState(0.0);
+function EditAcc() {
+  const { accounts } = useData();
   const { session } = useSession();
-  const currency = "HKD $";
-  const { addAccount } = useUpdateData();
-  const bottomInputRef = useRef<BottomSheet>(null);
-  const bottomColorRef = useRef<BottomSheet>(null);
-  const snapPointsInput = useMemo(() => ["1%", "50%"], []);
-  const snapPointsColor = useMemo(() => ["1%", "35%"], []);
+  const [index, setIndex] = useState(undefined);
+  const [name, setName] = useState(undefined);
+  const [amount, setAmount] = useState(undefined);
   const [selectedColor, setSelectedColor] = useState("blue");
+  const currency = "HKD $";
+  const { updateAccount, deleteAccount } = useUpdateData();
+  const bottomColorRef = useRef<BottomSheet>(null);
+  const snapPointsColor = useMemo(() => ["1%", "35%"], []);
+  useEffect(() => {
+    const getValueFromAsyncStorage = async () => {
+      try {
+        const value = await AsyncStorage.getItem("selectedAccount");
+        console.log(value);
+        return value; // Return the value from AsyncStorage
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  async function createAccount() {
-    await addAccount({
+    const setIndexValue = async () => {
+      const value = await getValueFromAsyncStorage();
+      setIndex(Number(value) ?? 0);
+      setName(accounts[Number(value)].name);
+      setAmount(accounts[Number(value)].balance);
+      setSelectedColor(accounts[Number(value)].colors);
+    };
+
+    setIndexValue();
+  }, []);
+
+  async function editAccount() {
+    await updateAccount(index, {
       name: name,
       balance: Number(amount),
       colors: selectedColor,
@@ -90,10 +113,18 @@ function NewAcc() {
     }
   }
 
+  function handleDelete() {
+    console.log(index);
+    deleteAccount(index);
+    // router.navigate("/");
+  }
+
   return (
     <SafeAreaView className="w-screen h-screen bg-cbg dark:bg-dbg">
       <View className="flex w-full p-7">
-        <H1>New Account</H1>
+        <H1 optionName="Adjust balance" optionhref="\adjustbal">
+          Edit Account
+        </H1>
         <LinearGradient
           colors={accountColors[selectedColor]}
           className="flex flex-col items-start justify-center p-4 rounded-lg w-full h-[136px] mr-4"
@@ -108,6 +139,14 @@ function NewAcc() {
             {amount}
           </Text>
         </LinearGradient>
+
+        <View className="flex w-full p-4 mt-4 bg-red-500 rounded-md">
+          <TouchableComponent onPress={() => handleDelete()}>
+            <Text className="text-center text-cfg dark:text-dfg font-ir">
+              Delete account
+            </Text>
+          </TouchableComponent>
+        </View>
       </View>
       <View className="flex w-full p-7">
         <H1>Account Details</H1>
@@ -123,22 +162,6 @@ function NewAcc() {
               hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
             />
           </OptionRow>
-          <OptionRule />
-          <OptionRow>
-            <Banknote className=" text-cpg dark:text-dpg" size="15px" />
-            <Text className="w-full pl-4 text-base font-il text-cpg dark:text-dpg">
-              {currency}
-            </Text>
-          </OptionRow>
-          <OptionRule />
-          <TouchableComponent onPress={() => bottomInputRef.current?.expand()}>
-            <OptionRow>
-              <PiggyBank className=" text-cpg dark:text-dpg" size="15px" />
-              <Text className="w-full pl-4 text-base font-il text-cpg dark:text-dpg">
-                {amount}
-              </Text>
-            </OptionRow>
-          </TouchableComponent>
           <OptionRule />
           <TouchableComponent onPress={() => bottomColorRef.current?.expand()}>
             <View className="flex flex-row items-center w-full p-4 ">
@@ -156,45 +179,10 @@ function NewAcc() {
       </View>
       <TouchableOpacity
         className="absolute bg-cprimary dark:bg-dprimary rounded-lg bottom-8 right-8 w-[72px] h-[72px] flex justify-center items-center"
-        onPress={() => createAccount()}
+        onPress={() => editAccount()}
       >
         <Check className="text-white" size="42px" />
       </TouchableOpacity>
-      <BottomSheet
-        ref={bottomInputRef}
-        index={-1}
-        snapPoints={snapPointsInput}
-        animationConfigs={animationConfigs}
-        overDragResistanceFactor={10}
-        enableContentPanningGesture={false}
-        // backdropComponent={renderBackdrop}
-      >
-        <View className="flex flex-row w-full h-full px-7 pb-7">
-          <View className="flex flex-col grow">
-            <Row>
-              <NumpadTile onPress={() => handleNumpad(1)} text="1" />
-              <NumpadTile onPress={() => handleNumpad(2)} text="2" />
-              <NumpadTile onPress={() => handleNumpad(3)} text="3" />
-            </Row>
-            <Row>
-              <NumpadTile onPress={() => handleNumpad(4)} text="4" />
-              <NumpadTile onPress={() => handleNumpad(5)} text="5" />
-              <NumpadTile onPress={() => handleNumpad(6)} text="6" />
-            </Row>
-            <Row>
-              <NumpadTile onPress={() => handleNumpad(7)} text="7" />
-              <NumpadTile onPress={() => handleNumpad(8)} text="8" />
-              <NumpadTile onPress={() => handleNumpad(9)} text="9" />
-            </Row>
-            <Row>
-              <NumpadTile onPress={() => handleNumpad(-1)} text="." />
-              <NumpadTile onPress={() => handleNumpad(0)} text="0" />
-              <NumpadTile onPress={() => handleNumpad(-2)} text="⌫" />
-            </Row>
-          </View>
-        </View>
-      </BottomSheet>
-
       <BottomSheet
         ref={bottomColorRef}
         index={-1}
@@ -226,29 +214,4 @@ function NewAcc() {
     </SafeAreaView>
   );
 }
-
-const Row = ({ children }: { children: React.ReactNode }) => {
-  return <View className="flex flex-row w-full grow">{children}</View>;
-};
-
-interface NumpadTileProps {
-  onPress: () => void;
-  text: string;
-}
-
-const NumpadTile: React.FC<NumpadTileProps> = ({ onPress, text }) => {
-  return (
-    <View className="justify-center grow">
-      <TouchableComponent
-        onPressIn={onPress}
-        className="flex items-center justify-center grow"
-      >
-        <View className="flex items-center justify-center grow">
-          <Text className="text-2xl text-ib">{text}</Text>
-        </View>
-      </TouchableComponent>
-    </View>
-  );
-};
-
-export default NewAcc;
+export default EditAcc;

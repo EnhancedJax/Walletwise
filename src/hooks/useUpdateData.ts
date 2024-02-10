@@ -4,9 +4,15 @@ import {
   addDBAccount,
   addDBCategory,
   addDBEntry,
+  updateDBAccount,
+  updateDBCategory,
+  updateDBEntry,
   fetchDBAccounts,
   fetchDBCategories,
   fetchDBEntries,
+  deleteDBAccount,
+  deleteDBCategory,
+  deleteDBEntry,
 } from "../utils/supabase";
 import { useData } from "./useData";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -65,6 +71,58 @@ export function useUpdateData() {
     }
     return false;
   }
+  
+  async function updateAccount(id: number, account: TablesInsert<"accounts">) {
+    const success = await updateDBAccount(id, account);
+    if (success) {
+      pullAccounts();
+      return true;
+    }
+    return false;
+  }
+  async function updateCategory(id: number, category: TablesInsert<"categories">) {
+    const success = await updateDBCategory(id, category);
+    if (success) {
+      pullCategories();
+      return true;
+    }
+    return false;
+  }
+  async function updateEntry(id: number, entry: TablesInsert<"entries">) {
+    const success = await updateDBEntry(id, entry);
+    if (success) {
+      pullEntries();
+      return true;
+    }
+    return false;
+  }
+  async function deleteAccount(id: number) {
+    console.log(`Deleting account ${id}`)
+    const success = await deleteDBAccount(id);
+    if (success) {
+      console.log("Success")
+      pullAccounts();
+      return true;
+    }
+    return false;
+  }
+  async function deleteCategory(id: number) {
+    const success = await deleteDBCategory(id);
+    if (success) {
+      pullCategories();
+      return true;
+    }
+    return false;
+  }
+  async function deleteEntry(id: number) {
+    const success = await deleteDBEntry(id);
+    if (success) {
+      pullEntries();
+      return true;
+    }
+    return false;
+  }
+
 
   async function getLocalAccounts() {
     const accounts = await AsyncStorage.getItem("accounts");
@@ -83,6 +141,12 @@ export function useUpdateData() {
     addAccount,
     addCategory,
     addEntry,
+    updateAccount,
+    updateCategory,
+    updateEntry,
+    deleteAccount,
+    deleteCategory,
+    deleteEntry,
     pullAccounts,
     pullCategories,
     pullEntries,

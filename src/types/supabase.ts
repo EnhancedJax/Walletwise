@@ -12,24 +12,21 @@ export type Database = {
       accounts: {
         Row: {
           balance: number | null
-          color1: string
-          color2: string
+          colors: string | null
           id: number
           name: string
           owner: string
         }
         Insert: {
           balance?: number | null
-          color1: string
-          color2: string
+          colors?: string | null
           id?: never
           name: string
           owner: string
         }
         Update: {
           balance?: number | null
-          color1?: string
-          color2?: string
+          colors?: string | null
           id?: never
           name?: string
           owner?: string

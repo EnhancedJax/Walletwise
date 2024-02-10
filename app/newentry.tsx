@@ -189,7 +189,9 @@ function NewEntry() {
     <SafeAreaView className="w-screen h-screen bg-cbg dark:bg-dbg">
       <ScrollView>
         <View className="flex w-full p-7">
-          <H1>New Entry</H1>
+          <H1 optionName="Adjust balance" optionhref="\adjustbal">
+            New Entry
+          </H1>
           <View className="flex items-center w-full mb-4 rounded-md bg-cfg dark:bg-dfg">
             <TouchableOpacity>
               <Text

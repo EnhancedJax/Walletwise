@@ -7,13 +7,12 @@ Front-end Todo:
   ☐ @fix      Numpad snap to correct position
   ✘ @change  Componentize numpad @cancelled(24-02-09 12:04)
   ✔ @change  Numpad for new account amount entry @done(24-02-09 12:18)
-  ☐ @new     Select dropdown for color
+  ✔ @new     Select drpdown for color @done(24-02-10 16:47)
   ☐ @fix      Entry category info display
   ✔ @change  Componentize inputs @done(24-02-10 15:23)
   ☐ @new     Automatic darkmode support
   Logic:
   ☐ Edit and remove accounts
-  ☐ Drive the boat
   ✔ Numpad operators @done(24-02-06 09:20)
   ☐ Numpad responsiveness
   ☐ Back button in new account page

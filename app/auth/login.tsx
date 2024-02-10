@@ -115,7 +115,7 @@ export default function Auth() {
             />
           </OptionRow> */}
         </OptionsWrapper>
-        <View className="flex w-full p-4 rounded-md mt-7 bg-cprimary dark:dprimary mb-7">
+        <View className="flex w-full p-4 rounded-md mt-7 bg-cprimary dark:bg-dprimary mb-7">
           <TouchableComponent onPress={() => signInWithEmail()}>
             <Text className="text-center text-cfg dark:text-dfg font-ir">
               Sign in
