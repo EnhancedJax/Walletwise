@@ -13,10 +13,6 @@ export const TouchableComponent: React.ComponentType<
   TouchableOpacityProps | TouchableNativeFeedbackProps
 > = Platform.OS === "ios" ? TouchableOpacity : TouchableNativeFeedback;
 
-export function Hrule() {
-  return <View className="w-full h-1 bg-cbg dark:bg-dbg" />;
-}
-
 export function H1({
   children,
   optionName = "",
@@ -59,4 +55,20 @@ export function H1({
       </View>
     );
   }
+}
+
+export function OptionsWrapper({ children }: { children: React.ReactNode }) {
+  return (
+    <View className="flex w-full rounded-md bg-cfg dark:bg-dfg">
+      {children}
+    </View>
+  );
+}
+
+export function OptionRow({ children }: { children: React.ReactNode }) {
+  return <View className="flex flex-row items-center p-4">{children}</View>;
+}
+
+export function OptionRule() {
+  return <View className="w-full h-1 bg-cbg dark:bg-dbg" />;
 }

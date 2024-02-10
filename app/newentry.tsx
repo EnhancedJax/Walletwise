@@ -282,7 +282,6 @@ function NewEntry() {
         ref={bottomSheetRef}
         index={0}
         snapPoints={snapPoints}
-        onChange={handleSheetChanges}
         animationConfigs={animationConfigs}
         overDragResistanceFactor={10}
       >
@@ -304,8 +303,10 @@ function NewEntry() {
         index={-1}
         snapPoints={snapPointsInput}
         animationConfigs={animationConfigs}
+        onChange={handleSheetChanges}
         overDragResistanceFactor={10}
         enableContentPanningGesture={false}
+        animateOnMount={false}
         // backdropComponent={renderBackdrop}
       >
         <View className="flex flex-row w-full h-full px-7 pb-7">

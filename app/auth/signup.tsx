@@ -96,30 +96,30 @@ export default function Auth() {
               className="w-full pl-4 text-base font-il text-cpg dark:text-dpg"
             />
           </OptionRow>
-          {/* <OptionRule />
+          <OptionRule />
           <OptionRow>
             <Tag className=" text-cpg dark:text-dpg" size="15px" />
             <TextInput
               onChangeText={(text) => setName(text)}
               value={name}
-              placeholder="Name (Signup)"
+              placeholder="Name"
               autoCapitalize={"none"}
               className="w-full pl-4 text-base font-il text-cpg dark:text-dpg"
             />
-          </OptionRow> */}
+          </OptionRow>
         </OptionsWrapper>
         <View className="flex w-full p-4 rounded-md mt-7 bg-cprimary dark:dprimary mb-7">
-          <TouchableComponent onPress={() => signInWithEmail()}>
+          <TouchableComponent onPress={() => signUpWithEmail()}>
             <Text className="text-center text-cfg dark:text-dfg font-ir">
-              Sign in
+              Sign up
             </Text>
           </TouchableComponent>
         </View>
-        <Link href="/auth/signup" asChild>
+        <Link href="/auth/login" asChild>
           <TouchableComponent>
             <View className="flex w-full">
               <Text className="text-center text-cpg dark:text-dpg font-il">
-                New user?
+                Sign in instead
               </Text>
             </View>
           </TouchableComponent>

@@ -8,7 +8,11 @@ import {
   TextInput,
 } from "react-native";
 import useSession from "../src/hooks/useSession";
-import { H1, Hrule, TouchableComponent } from "../src/components/essentials";
+import {
+  H1,
+  OptionRule,
+  TouchableComponent,
+} from "../src/components/essentials";
 import {
   Banknote,
   Check,
@@ -113,14 +117,14 @@ function NewAcc() {
               hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
             />
           </View>
-          <Hrule />
+          <OptionRule />
           <View className="flex flex-row items-center p-4">
             <Banknote className=" text-cpg dark:text-dpg" size="15px" />
             <Text className="w-full pl-4 text-base font-il text-cpg dark:text-dpg">
               {currency}
             </Text>
           </View>
-          <Hrule />
+          <OptionRule />
           <TouchableComponent onPress={() => bottomInputRef.current?.expand()}>
             <View className="flex flex-row items-center p-4">
               <PiggyBank className=" text-cpg dark:text-dpg" size="15px" />
@@ -129,7 +133,7 @@ function NewAcc() {
               </Text>
             </View>
           </TouchableComponent>
-          <Hrule />
+          <OptionRule />
           <View className="flex flex-row items-center p-4">
             <Palette className=" text-cpg dark:text-dpg" size="15px" />
           </View>
