@@ -12,11 +12,11 @@ import { useUpdateData } from "../hooks/useUpdateData";
 
 const getFonts = () =>
   Font.loadAsync({
-    InterLight: require("../src/assets/fonts/Inter-Light.ttf"),
-    InterRegular: require("../src/assets/fonts/Inter-Regular.ttf"),
-    InterMedium: require("../src/assets/fonts/Inter-Medium.ttf"),
-    InterSemiBold: require("../src/assets/fonts/Inter-SemiBold.ttf"),
-    InterBold: require("../src/assets/fonts/Inter-Bold.ttf"),
+    InterLight: require("../assets/fonts/Inter-Light.ttf"),
+    InterRegular: require("../assets/fonts/Inter-Regular.ttf"),
+    InterMedium: require("../assets/fonts/Inter-Medium.ttf"),
+    InterSemiBold: require("../assets/fonts/Inter-SemiBold.ttf"),
+    InterBold: require("../assets/fonts/Inter-Bold.ttf"),
   });
 
 export default function Layout() {

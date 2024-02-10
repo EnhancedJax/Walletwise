@@ -9,17 +9,17 @@ import {
   SafeAreaView,
   Text,
 } from "react-native";
-import { supabase } from "../../src/utils/supabaseInit";
-import useSession from "../../src/hooks/useSession";
+import { supabase } from "../../utils/supabaseInit";
+import useSession from "../../hooks/useSession";
 import { Link, Redirect } from "expo-router";
 import {
   OptionsWrapper,
   OptionRow,
   OptionRule,
   TouchableComponent,
-} from "../../src/components/essentials";
+} from "../../components/essentials";
 import { Asterisk, Tag, User2 } from "lucide-react-native";
-import { useUpdateData } from "../../src/hooks/useUpdateData";
+import { useUpdateData } from "../../hooks/useUpdateData";
 
 AppState.addEventListener("change", (state) => {
   if (state === "active") {
