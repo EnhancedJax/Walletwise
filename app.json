@@ -16,6 +16,9 @@
       ]
     ],
     "name": "Walletwise",
-    "slug": "Walletwise"
+    "slug": "Walletwise",
+    "experiments": {
+      "typedRoutes": true
+    }
   }
 }
