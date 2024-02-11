@@ -39,9 +39,9 @@ export default function Layout() {
     getLocalCategories();
     getLocalEntries();
 
-    // pullAccounts();
-    // pullCategories();
-    // pullEntries();
+    pullAccounts();
+    pullCategories();
+    pullEntries();
   }, [session, hasRendered.current]);
 
   useEffect(() => {

@@ -117,13 +117,15 @@ const Entry = ({ entry }: { entry: any }) => {
           <View className="flex flex-row mr-4 shrink">
             <View
               className="mr-4 h-[32px] w-[32px] rounded-lg p-2"
-              style={{ backgroundColor: "categories[entry.category].color" }}
+              style={{ backgroundColor: categories[entry.category].color }}
             >
               <Utensils className="text-cpg dark:text-dpg" size="16px" />
             </View>
             <View>
               <Text className="text-base font-medium font-im text-cpg dark:text-dpg">
-                {String(entry.name ? entry.name : entry.category)}
+                {String(
+                  entry.name ? entry.name : categories[entry.category].name
+                )}
               </Text>
               <Text
                 numberOfLines={1}
